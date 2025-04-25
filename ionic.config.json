@@ -1,0 +1,7 @@
+{
+  "name": "belajar-ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
