@@ -22,66 +22,70 @@
       <ion-button color="primary" size="small">Order Now</ion-button>
     </div>
     <div class="category" style="margin-top: 50px;">
-      <div class="category-button">
-        <img src="assets/icon/food.png" alt="logo" class="logo">
+      <div class="category-button" (click)="selectCategory('semua')">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
         <h3>All</h3>
       </div>
-      <div class="category-button">
-        <img src="assets/icon/food.png" alt="logo" class="logo">
+      <div class="category-button" (click)="selectCategory('snack')">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
         <h3>Snack</h3>
       </div>
-      <div class="category-button">
-        <img src="assets/icon/food.png" alt="logo" class="logo">
+      <div class="category-button" (click)="selectCategory('makanan')">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
         <h3>Food</h3>
       </div>
-      <div class="category-button">
-        <img src="assets/icon/food.png" alt="logo" class="logo">
+      <div class="category-button" (click)="selectCategory('minuman')">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
         <h3>Drink</h3>
       </div>
     </div>
-    <h2 style="color: black; margin-top: 50px;">Popular Item</h2>
+
+
+    <h2 style="color: black; margin-top: 50px;">MENU TERLARIS</h2>
     <div class="popular" style="margin-top: 20px;">
-      <div class="popular-item">
-        <img src="assets/icon/ajar.jpg" alt="logo" class="logo">
-        <h3>Kanjut</h3>
+      <div class="popular-item" *ngFor="let item of terlarisList">
+        <img [src]="imageBaseUrl + item.gambar" alt="{{ item.nama }}" class="logo">
+        <h3>{{ item.nama }}</h3>
         <div class="price">
-          <h3>Rp. 20.000</h3>
+          <h3>Rp. {{ item.harga | number:'1.0-0' }}</h3>
           <ion-icon name="add-circle-outline" class="add-icon"></ion-icon>
         </div>
       </div>
-      <div class="popular-item">
-        <img src="assets/icon/ajar.jpg" alt="logo" class="logo">
-        <h3>Kanjut</h3>
-        <div class="price">
-          <h3>Rp. 20.000</h3>
-          <ion-icon name="add-circle-outline" class="add-icon"></ion-icon>
-        </div>
-      </div>
-      <div class="popular-item">
-        <img src="assets/icon/ajar.jpg" alt="logo" class="logo">
-        <h3>Kanjut</h3>
-        <div class="price">
-          <h3>Rp. 20.000</h3>
-          <ion-icon name="add-circle-outline" class="add-icon"></ion-icon>
-        </div>
-      </div>
-      <ion-footer>
-        <div class="bottom-navbar">
-          <div class="nav-button">
-            <ion-icon name="home-outline"></ion-icon>
-          </div>
-          <div class="nav-button">
-            <ion-icon name="book-outline"></ion-icon>
-          </div>
-          <div class="nav-button">
-            <ion-icon name="document-text-outline"></ion-icon>
-          </div>
-          <div class="nav-button">
-            <ion-icon name="person-outline"></ion-icon>
-          </div>
-        </div>
-      </ion-footer>
-      
     </div>
+
+    <!-- menu tampil sesuai klik -->
+    <h2 *ngIf="selectedTitle" style="color: black; margin-top: 50px;">{{ selectedTitle }}</h2>
+
+    <div class="popular" style="margin-top: 20px;">
+      <div class="popular-item" *ngFor="let item of selectedItems">
+        <img [src]="imageBaseUrl + item.gambar" alt="{{ item.nama }}" class="logo">
+        <h3>{{ item.nama }}</h3>
+        <div class="price">
+          <h3>Rp. {{ item.harga | number:'1.0-0' }}</h3>
+          <ion-icon name="add-circle-outline" class="add-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- footer -->
+    <ion-footer>
+      <div class="bottom-navbar">
+        <div class="nav-button">
+          <ion-icon name="home-outline"></ion-icon>
+        </div>
+        <div class="nav-button">
+          <ion-icon name="book-outline"></ion-icon>
+        </div>
+        <div class="nav-button">
+          <ion-icon name="document-text-outline"></ion-icon>
+        </div>
+        <div class="nav-button">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+      </div>
+    </ion-footer>
   </div>
 </ion-content>

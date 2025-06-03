@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuService } from '../services/menu/menu.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,53 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class HomePage implements OnInit {
+  menuList: any[] = [];
+  makananList: any[] = [];
+  minumanList: any[] = [];
+  snackList: any[] = [];
+  selectedItems: any[] = [];
+  selectedTitle = '';
+  imageBaseUrl = environment.imageBaseUrl;
+  terlarisList: any[] = [];
 
-  constructor() { }
+  constructor(private menuService: MenuService) { }
 
   ngOnInit() {
+    this.menuService.getAllMenu().subscribe((res: any) => {
+      this.menuList = res;
+      this.makananList = res.filter((m: any) => m.kategori.toLowerCase() === 'makanan');
+      this.minumanList = res.filter((m: any) => m.kategori.toLowerCase() === 'minuman');
+      this.snackList = res.filter((m: any) => m.kategori.toLowerCase() === 'snack');
+      this.selectedItems = this.menuList;
+      this.selectedTitle = 'SEMUA MENU';
+    });
+    this.menuService.getMenuTerlaris().subscribe((res: any) => {
+      this.terlarisList = res;
+    });
   }
 
+
+  selectCategory(kategori: string) {
+    switch (kategori) {
+      case 'makanan':
+        this.selectedItems = this.makananList;
+        this.selectedTitle = 'MAKANAN';
+        break;
+      case 'minuman':
+        this.selectedItems = this.minumanList;
+        this.selectedTitle = 'MINUMAN';
+        break;
+      case 'snack':
+        this.selectedItems = this.snackList;
+        this.selectedTitle = 'SNACK';
+        break;
+      case 'semua':
+        this.selectedItems = this.menuList;
+        this.selectedTitle = 'SEMUA MENU';
+        break;
+      default:
+        this.selectedItems = [];
+        this.selectedTitle = '';
+    }
+  }
 }
