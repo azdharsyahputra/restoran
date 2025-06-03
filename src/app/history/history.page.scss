@@ -1,0 +1,76 @@
+ion-content {
+    --background: #ffffff;
+}
+
+.container {
+    background-color: white;
+    height: 100%;
+    padding: 16px;
+}
+.bottom-navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 0;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #444;
+}
+
+.nav-button ion-icon {
+  font-size: 40px;
+  margin-bottom: 2px;
+}
+
+.history-card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  margin-top: 16px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.history-card:hover {
+  transform: scale(1.02);
+}
+
+.image-history {
+  flex: 0 0 auto;
+  margin-right: 12px;
+}
+
+.image-history .image {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.desc-history {
+  flex: 1;
+  color: #333;
+  font-size: 14px;
+}
+
+.price-history {
+  flex: 0 0 auto;
+  font-weight: bold;
+  color: #2ecc71;
+  font-size: 14px;
+}
