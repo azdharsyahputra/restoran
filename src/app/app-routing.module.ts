@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'regist',
     loadChildren: () => import('./auth/regist/regist.module').then(m => m.RegistPageModule)
+  },  {
+    path: 'history',
+    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
   },
+
 ];
 
 @NgModule({
