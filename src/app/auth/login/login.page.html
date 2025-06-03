@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content class="login-content">
+
+  <div class="login-container">
+    <img src="assets/login-illustration.png" class="header-image" alt="Login Image" />
+
+    <div class="login-box">
+      <h2 class="login-title">Masuk Ke Akun</h2>
+      <p class="login-subtitle">Selamat Datang kembali</p>
+
+      <!-- <div class="social-login">
+        <ion-icon name="logo-google" class="social-icon google"></ion-icon>
+        <ion-icon name="logo-facebook" class="social-icon facebook"></ion-icon>
+      </div> -->
+
+      <ion-item lines="none" class="input-item">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Email" [(ngModel)]="email" type="email"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="input-item">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Password" [(ngModel)]="password" type="password"></ion-input>
+        <ion-icon name="eye-off-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <div class="remember-container">
+        <ion-label>Ingatkan saya lain kali</ion-label>
+        <ion-toggle checked color="warning"></ion-toggle>
+      </div>
+
+      <!-- <ion-button expand="block" class="login-button" (click)="login()">Masuk</ion-button> -->
+      <div class="button-wrapper">
+        <ion-button class="login-button" expand="block" fill="solid" (click)="login()">
+          Masuk
+        </ion-button>
+      </div>
+
+
+      <div class="login-footer">
+        <a href="#" class="forgot-password">Lupa kata sandi?</a><br>
+        <br>
+        <span>Belum punya akun? 
+          <a class="signup-link" [routerLink]="['/regist']">Daftar</a></span>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

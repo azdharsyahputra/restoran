@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrasi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-content">
+  <div class="login-container">
+    <!-- Ilustrasi jika ada -->
+    <img src="assets/img/register-illustration.png" class="header-image" alt="Ilustrasi Registrasi" />
+
+    <div class="login-box">
+      <h2 class="login-title">Buat Akun</h2>
+      <p class="login-subtitle">Lengkapi data di bawah ini untuk membuat akun baru</p>
+
+      <div class="button-wrapper-gogle">
+        <!-- Hanya logo Google -->
+        <ion-button class="google-button" fill="clear" (click)="loginWithGoogle()">
+          <ion-icon name="logo-google" class="google-icon"></ion-icon>
+        </ion-button>
+      </div>
+
+      <form (ngSubmit)="register()">
+        <ion-item class="input-item">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-label position="floating">Nama</ion-label>
+          <ion-input [(ngModel)]="nama" name="nama" required></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="email" name="email" required type="email"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input [(ngModel)]="password" name="password" required type="password"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-label position="floating">Konfirmasi Password</ion-label>
+          <ion-input [(ngModel)]="password_confirmation" name="password_confirmation" required
+            type="password"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-icon name="call-outline" slot="start"></ion-icon>
+          <ion-label position="floating">Telepon</ion-label>
+          <ion-input [(ngModel)]="telepon" name="telepon" required type="text"></ion-input>
+        </ion-item>
+
+        <div class="button-wrapper">
+          <ion-button class="login-button" type="submit">Daftar</ion-button>
+        </div>
+      </form>
+
+
+      <div class="login-footer">
+        <span>Sudah punya akun? <a class="signup-link" [routerLink]="['/login']">Masuk</a></span>
+      </div>
+    </div>
+  </div>
+</ion-content>
