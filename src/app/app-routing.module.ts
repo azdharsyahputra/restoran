@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,37 +19,46 @@ const routes: Routes = [
   {
     path: 'regist',
     loadChildren: () => import('./auth/regist/regist.module').then(m => m.RegistPageModule)
-  },  {
+  },
+  {
     path: 'history',
-    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'history-detail',
-    loadChildren: () => import('./history-detail/history-detail.module').then( m => m.HistoryDetailPageModule)
+    loadChildren: () => import('./history-detail/history-detail.module').then( m => m.HistoryDetailPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'edit-profile',
-    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'tanggal',
-    loadChildren: () => import('./reservasi/tanggal/tanggal.module').then( m => m.TanggalPageModule)
+    loadChildren: () => import('./reservasi/tanggal/tanggal.module').then( m => m.TanggalPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'jam',
-    loadChildren: () => import('./reservasi/jam/jam.module').then( m => m.JamPageModule)
+    loadChildren: () => import('./reservasi/jam/jam.module').then( m => m.JamPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'pilih-menu',
-    loadChildren: () => import('./reservasi/pilih-menu/pilih-menu.module').then( m => m.PilihMenuPageModule)
+    loadChildren: () => import('./reservasi/pilih-menu/pilih-menu.module').then( m => m.PilihMenuPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'payment',
-    loadChildren: () => import('./reservasi/payment/payment.module').then( m => m.PaymentPageModule)
+    loadChildren: () => import('./reservasi/payment/payment.module').then( m => m.PaymentPageModule),
+    canActivate: [AuthGuard]
   },
 
 ];

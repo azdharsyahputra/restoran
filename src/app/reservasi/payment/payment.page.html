@@ -4,7 +4,7 @@
 <ion-content [fullscreen]="true">
   <div class="container">
     <div class="header">
-      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <ion-icon name="arrow-back-outline" class="icon" [routerLink]="['/pilih-menu']"></ion-icon>
       <div class="header-title">
         <p style="color: black;">Detail Reservasi</p>
       </div>
@@ -16,21 +16,24 @@
     <!-- Card Detail History -->
     <ion-card class="history-card">
       <ion-card-content>
-        <div class="detail-item">
+        <!-- <div class="detail-item">
           <strong>ID:</strong>
           <span>11271283481</span>
-        </div>
+        </div> -->
         <div class="detail-item">
           <strong>Tanggal:</strong>
-          <span>Minggu 12 April 2025</span>
+          <span>{{ tanggal }}</span>
         </div>
+
         <div class="detail-item">
           <strong>Jam:</strong>
-          <span>12:00</span>
+          <span>{{ jam }}</span>
         </div>
+
         <div class="detail-item">
           <strong>Nama:</strong>
-          <span>Azdhar Ganteng</span>
+          <!-- <span>Azdhar Ganteng</span> -->
+          <!-- <span>{{ namaPengguna }}</span> -->
         </div>
 
         <!-- Judul menu -->
@@ -40,17 +43,12 @@
           <span>Harga</span>
         </div>
 
-        <!-- Contoh isi menu -->
-        <div class="menu-row">
-          <span>Ayam Geprek</span>
-          <span>1</span>
-          <span>Rp 22.000</span>
+        <div class="menu-row" *ngFor="let item of pesanan">
+          <span>{{ item.nama }}</span>
+          <span>{{ item.jumlah }}</span>
+          <span>Rp {{ (item.harga || 0) * item.jumlah | number:'1.0-0' }}</span>
         </div>
-        <div class="menu-row">
-          <span>Nasi Goreng</span>
-          <span>2</span>
-          <span>Rp 40.000</span>
-        </div>
+
 
         <div class="detail-item">
           <strong>Catatan:</strong>
