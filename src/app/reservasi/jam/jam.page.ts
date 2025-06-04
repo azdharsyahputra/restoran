@@ -20,22 +20,22 @@ export class JamPage implements OnInit {
     {
       label: 'Sarapan',
       jamList: [
-        { key: 'sarapan_1', label: '09:00 - 11:00' },
-        { key: 'sarapan_2', label: '11:00 - 13:00' },
+        { key: 'sarapan_1', label: '07:00 - 10:00' },
+        { key: 'sarapan_2', label: '10:00 - 12:00' },
       ]
     },
     { 
       label: 'Makan Siang',
       jamList: [
         { key: 'siang_1', label: '12:00 - 14:00' },
-        { key: 'siang_2', label: '14:00 - 16:00' },
+        { key: 'siang_2', label: '14:00 - 17:00' },
       ]
     },
     {
       label: 'Makan Malam',
       jamList: [
-        { key: 'malam_1', label: '18:00 - 20:00' },
-        { key: 'malam_2', label: '20:00 - 22:00' },
+        { key: 'malam_1', label: '17:00 - 19:00' },
+        { key: 'malam_2', label: '19:00 - 22:00' },
       ]
     }
   ];

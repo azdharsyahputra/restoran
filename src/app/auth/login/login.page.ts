@@ -56,6 +56,7 @@ export class LoginPage implements OnInit {
         localStorage.setItem('nama', response.user.nama);
         localStorage.setItem('email', response.user.email);
         localStorage.setItem('role', response.user.role);  // Menyimpan role
+        localStorage.setItem('pengguna_id', response.user.id.toString());
 
         // Mengarahkan berdasarkan role
         this.redirectByRole(response.user.role);
