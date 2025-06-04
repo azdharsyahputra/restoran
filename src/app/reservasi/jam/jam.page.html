@@ -4,7 +4,7 @@
 <ion-content [fullscreen]="true">
   <div class="container">
     <div class="header">
-      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <ion-icon name="arrow-back-outline" class="icon" [routerLink]="['/tanggal']"></ion-icon>
       <div class="header-title">
         <p style="color: black;">Reservasi</p>
       </div>
@@ -15,102 +15,113 @@
     <ion-card class="process-card">
       <ion-card-content>
         <div class="process-icons">
-          <div class="step-icon">
+          <div class="step-icon" [routerLink]="['/tanggal']">
             <ion-icon name="calendar-outline"></ion-icon>
             <span>Tanggal</span>
           </div>
           <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
-          <div class="step-icon active">
+          <div class="step-icon active" [routerLink]="['/jam']">
             <ion-icon name="time-outline"></ion-icon>
             <span>Waktu</span>
           </div>
           <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
-          <div class="step-icon">
+          <div class="step-icon " [routerLink]="['/pilih-menu']">
             <ion-icon name="restaurant-outline"></ion-icon>
             <span>Menu</span>
           </div>
           <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
-          <div class="step-icon">
+          <div class="step-icon" [routerLink]="['/payment']">
             <ion-icon name="card-outline"></ion-icon>
             <span>Bayar</span>
           </div>
         </div>
       </ion-card-content>
     </ion-card>
-    <div class="pagi">
+
+    <!-- pilih jam -->
+    <!-- <div class="pagi">
       <h3>Sarapan</h3>
       <div class="jam">
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'pagi1' }" 
-                  (click)="selectJam('pagi1')">
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'pagi1' }" (click)="selectJam('pagi1')">
           <ion-card-content>09:00 - 11:00</ion-card-content>
         </ion-card>
 
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'pagi2' }" 
-                  (click)="selectJam('pagi2')">
-          <ion-card-content>09:00 - 11:00</ion-card-content>
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'pagi2' }" (click)="selectJam('pagi2')">
+          <ion-card-content>11:00 - 13:00</ion-card-content>
         </ion-card>
 
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'pagi3' }" 
-                  (click)="selectJam('pagi3')">
-          <ion-card-content>09:00 - 11:00</ion-card-content>
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'pagi3' }" (click)="selectJam('pagi3')">
+          <ion-card-content>13:00 - 15:00</ion-card-content>
         </ion-card>
       </div>
     </div>
+
     <div class="siang">
       <h3>Makan Siang</h3>
       <div class="jam">
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'siang1' }" 
-                  (click)="selectJam('siang1')">
-          <ion-card-content>09:00 - 11:00</ion-card-content>
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'siang1' }" (click)="selectJam('siang1')">
+          <ion-card-content>12:00 - 14:00</ion-card-content>
         </ion-card>
 
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'siang2' }" 
-                  (click)="selectJam('siang2')">
-          <ion-card-content>09:00 - 11:00</ion-card-content>
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'siang2' }" (click)="selectJam('siang2')">
+          <ion-card-content>14:00 - 16:00</ion-card-content>
         </ion-card>
 
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'siang3' }" 
-                  (click)="selectJam('siang3')">
-          <ion-card-content>09:00 - 11:00</ion-card-content>
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'siang3' }" (click)="selectJam('siang3')">
+          <ion-card-content>16:00 - 18:00</ion-card-content>
         </ion-card>
       </div>
     </div>
+
     <div class="malam">
       <h3>Makan Malam</h3>
       <div class="jam">
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'malam1' }" 
-                  (click)="selectJam('malam1')">
-          <ion-card-content>09:00 - 11:00</ion-card-content>
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'malam1' }" (click)="selectJam('malam1')">
+          <ion-card-content>18:00 - 20:00</ion-card-content>
         </ion-card>
 
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'malam2' }" 
-                  (click)="selectJam('malam2')">
-          <ion-card-content>09:00 - 11:00</ion-card-content>
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'malam2' }" (click)="selectJam('malam2')">
+          <ion-card-content>20:00 - 22:00</ion-card-content>
         </ion-card>
 
-        <ion-card class="jam-card" 
-                  [ngClass]="{ 'selected': selectedJam === 'malam3' }" 
-                  (click)="selectJam('malam3')">
-          <ion-card-content>09:00 - 11:00</ion-card-content>
-        </ion-card>
+        <ion-card class="jam-card" [ngClass]="{ 'selected': selectedJam === 'malam3' }" (click)="selectJam('malam3')">
+          <ion-card-content>22:00 - 00:00</ion-card-content>
+        </ion-card> 
+      </div> 
+    </div> -->
+
+
+    <!-- pilih jam -->
+    <ng-container *ngFor="let kategori of sesiList">
+      <div class="kategori">
+        <h3>{{ kategori.label }}</h3>
+        <div class="jam">
+          <ion-card *ngFor="let sesi of kategori.jamList" class="jam-card"
+            [ngClass]="{ 'selected': selectedJam === sesi.key }" (click)="selectJam(sesi.key)">
+            <ion-card-content>{{ sesi.label }}</ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <!-- total orang -->
+    <div class="total-orang" style="margin-top: 20px;">
+      <p style="color: black; margin-left: 10px;">Total Orang</p>
+      <div class="form-orang" style="margin-left: 10px; display: flex; align-items: center;">
+        <div style="color: black; margin-right: 20px;">Kapasitas 20 Orang</div>
+        <ion-button size="small" shape="round" color="dark" (click)="kurangJumlah()">-</ion-button>
+        <ion-input type="number" [value]="jumlahTamu" readonly style="width: 50px; text-align: center; color: black;">
+        </ion-input>
+        <ion-button size="small" shape="round" color="dark" (click)="tambahJumlah()">+</ion-button>
       </div>
     </div>
-<div class="total-orang">
-  <p style="color: black; margin-left: 10px;">Total Orang</p>
-  <div class="form-orang" style="margin-left: 10px;">
-    <div style="color: black; margin-right: 20px;">Kapasitas 20 Orang</div>
-      <ion-button size="small" shape="round" color="dark">-</ion-button>
-      <ion-input type="number" value="1" min="1" max="20" readonly style="width: 50px; text-align: center; color: black;"></ion-input>
-      <ion-button size="small" shape="round" color="dark">+</ion-button>
-  </div>
-</div>
+
+    <!-- tombol lanjut -->
+    <div style="margin: 20px 10px;">
+      <ion-button expand="block" (click)="onOk()">Lanjut</ion-button>
+    </div>
+
+
   </div>
 </ion-content>
