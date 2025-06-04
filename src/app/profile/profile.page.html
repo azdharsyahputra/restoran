@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="header">
+      <div class="header-title">
+        <p>Profile</p>
+      </div>
+    </div>
+    <!-- Bagian View Profile -->
+    <div class="profile-container">
+      <img src="assets/icon/ajar.jpg" alt="Profile Picture" class="profile-picture">
+      <h2 class="username">Ajar</h2>
+      <p class="email">ajarexample.com</p>
+
+      <ion-button expand="block" color="primary" routerLink="/edit-profile">Edit Profile</ion-button>
+      <ion-button expand="block" color="primary" routerLink="/edit-profile">Chat Admin</ion-button>
+    </div>
+    <!-- footer -->
+    <ion-footer>
+      <div class="bottom-navbar">
+        <div class="nav-button">
+          <ion-icon name="home-outline"></ion-icon>
+        </div>
+        <div class="nav-button">
+          <ion-icon name="book-outline"></ion-icon>
+        </div>
+        <div class="nav-button">
+          <ion-icon name="document-text-outline"></ion-icon>
+        </div>
+        <div class="nav-button">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+      </div>
+    </ion-footer>
+  </div>
+</ion-content>
