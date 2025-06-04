@@ -1,0 +1,127 @@
+ion-content {
+    --background: #ffffff;
+}
+
+.container {
+    background-color: white;
+    height: 100%;
+    padding: 16px;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-title {
+    flex: 2;
+    color: black;
+    font-size: 20px;
+    margin-left: 110px;
+}
+
+.icon {
+    color: black;
+    font-size: 20px;
+}
+
+.icon2 {
+    flex: 0.5;
+    color: black;
+    font-size: 20px;
+}
+.process-card {
+  margin-bottom: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.process-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #555;
+}
+
+.step-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #999;
+}
+
+.step-icon ion-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.step-icon.active {
+  color: #3880ff;
+  font-weight: bold;
+}
+
+.arrow ion-icon {
+  font-size: 18px;
+  color: #ccc;
+  margin: 0 6px;
+}
+h3{
+  color: black;
+  font-size: 20px;
+  text-align: center;
+}
+.jam-card {
+  margin: 8px 0 16px;
+  border-radius: 12px;
+  background-color: #f1f1f1;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.jam-card ion-card-content {
+  text-align: center;
+  font-weight: bold;
+  font-size: 10px;
+}
+.jam{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.total-orang {
+  background-color: #cdcdcd;
+  border-radius: 5px;
+  align-items: center;
+}
+
+.total-orang p {
+  margin-bottom: 8px;
+}
+
+.form-orang {
+  display: flex;
+  flex-direction: row;
+  flex-direction: center;
+  align-items: center;
+}
+
+.jumlah-orang {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.jam-card {
+  transition: 0.2s ease-in-out;
+}
+
+.jam-card.selected {
+  background-color: #007bff;
+  color: white;
+}
+

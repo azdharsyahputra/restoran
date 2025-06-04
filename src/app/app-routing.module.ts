@@ -34,6 +34,22 @@ const routes: Routes = [
     path: 'edit-profile',
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
+  {
+    path: 'tanggal',
+    loadChildren: () => import('./reservasi/tanggal/tanggal.module').then( m => m.TanggalPageModule)
+  },
+  {
+    path: 'jam',
+    loadChildren: () => import('./reservasi/jam/jam.module').then( m => m.JamPageModule)
+  },
+  {
+    path: 'pilih-menu',
+    loadChildren: () => import('./reservasi/pilih-menu/pilih-menu.module').then( m => m.PilihMenuPageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./reservasi/payment/payment.module').then( m => m.PaymentPageModule)
+  },
 
 ];
 
