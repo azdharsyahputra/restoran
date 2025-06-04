@@ -26,6 +26,14 @@ const routes: Routes = [
     path: 'history-detail',
     loadChildren: () => import('./history-detail/history-detail.module').then( m => m.HistoryDetailPageModule)
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
 
 ];
 

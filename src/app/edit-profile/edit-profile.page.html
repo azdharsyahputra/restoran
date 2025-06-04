@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="edit-container">
+    <img src="assets/icon/ajar.jpg" alt="Profile Picture" class="profile-picture">
+    <ion-button expand="block" fill="outline" color="medium">Change Photo</ion-button>
+
+    <ion-item>
+      <ion-label position="stacked" style="color: black;">Name</ion-label>
+      <ion-input type="text" value="Ajar" style="color: black;"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked" style="color: black;">Email</ion-label>
+      <ion-input type="email" value="ajar@example.com" style="color: black;"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" color="success">Save Changes</ion-button>
+  </div>
+</ion-content>
+
+    <!-- Footer -->
+    <ion-footer>
+      <div class="bottom-navbar">
+        <div class="nav-button">
+          <ion-icon name="home-outline"></ion-icon>
+        </div>
+        <div class="nav-button">
+          <ion-icon name="book-outline"></ion-icon>
+        </div>
+        <div class="nav-button">
+          <ion-icon name="document-text-outline"></ion-icon>
+        </div>
+        <div class="nav-button" routerLink="/profile">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+      </div>
+    </ion-footer>
