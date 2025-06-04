@@ -30,11 +30,12 @@
           <span>{{ jam }}</span>
         </div>
 
+        <!-- <span>Azdhar Ganteng</span> -->
         <div class="detail-item">
           <strong>Nama:</strong>
-          <!-- <span>Azdhar Ganteng</span> -->
-          <!-- <span>{{ namaPengguna }}</span> -->
+          <span>{{ namaPengguna }}</span>
         </div>
+
 
         <!-- Judul menu -->
         <div class="menu-header">
@@ -50,22 +51,43 @@
         </div>
 
 
-        <div class="detail-item">
+        <!-- <div class="detail-item">
           <strong>Catatan:</strong>
           <span>Tanpa sambal</span>
+        </div> -->
+
+        <!-- Contoh catatan global untuk seluruh pesanan -->
+        <div class="detail-item">
+          <strong>Catatan:</strong>
+          <textarea [(ngModel)]="catatanGlobal" placeholder="Masukkan catatan tambahan"></textarea>
         </div>
 
         <!-- Pilihan metode pembayaran -->
-        <label for="payment" class="label-payment">Metode Pembayaran</label>
+        <!-- <label for="payment" class="label-payment">Metode Pembayaran</label>
         <select id="payment" name="payment" class="select-payment">
           <option value="" disabled selected>Pilih Pembayaran</option>
           <option value="bri">BRI</option>
           <option value="bca">BCA</option>
           <option value="midtrans">Midtrans</option>
-        </select>
+        </select> 
         <ion-button expand="block" color="primary" style="margin-top: 20px;">
           Bayar Sekarang
+        </ion-button> -->
+
+        <label for="payment" class="label-payment">Metode Pembayaran</label>
+        <select id="payment" name="payment" class="select-payment" [(ngModel)]="metodePembayaran">
+          <option value="" disabled selected>Pilih Pembayaran</option>
+          <option value="qris">QRIS</option>
+          <option value="transfer">Transfer</option>
+          <option value="cod">COD</option>
+        </select>
+
+        <ion-button expand="block" color="primary" style="margin-top: 20px;" (click)="submitReservasi()">
+          Bayar Sekarang
         </ion-button>
+
+
+
       </ion-card-content>
     </ion-card>
   </div>
