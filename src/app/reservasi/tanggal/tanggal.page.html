@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="header">
+      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <div class="header-title">
+        <p style="color: black;">Reservasi</p>
+      </div>
+      <div class="icon-header">
+        <ion-icon name="close-outline" class="icon2"></ion-icon>
+      </div>
+    </div>
+    <ion-card class="process-card">
+      <ion-card-content>
+        <div class="process-icons">
+          <div class="step-icon active">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>Tanggal</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>Waktu</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon">
+            <ion-icon name="restaurant-outline"></ion-icon>
+            <span>Menu</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon">
+            <ion-icon name="card-outline"></ion-icon>
+            <span>Bayar</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+
+    <div class="date-card">
+      <p style="color: black; margin-bottom: 20px;">Pilih Tanggal</p>
+      <div *ngIf="selectedDate" class="selected-date-info" style="border-bottom: 1px solid #000000;">
+        {{ formatDate(selectedDate) }}
+      </div>
+
+      <ion-datetime 
+        display-format="DD MMMM YYYY" 
+        picker-format="DD MMMM YYYY"
+        presentation="date"
+        placeholder="Pilih tanggal"
+        [(ngModel)]="selectedDate">
+      </ion-datetime>
+      <div class="button-row">
+        <ion-button size="small" fill="outline" color="medium" (click)="onCancel()">Cancel</ion-button>
+        <ion-button size="small" (click)="onOk()" [disabled]="!selectedDate">OK</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

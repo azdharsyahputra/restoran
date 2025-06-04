@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="header">
+      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <div class="header-title">
+        <p style="color: black;">Detail Reservasi</p>
+      </div>
+      <div class="icon-header">
+        <ion-icon name="close-outline" class="icon2"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Card Detail History -->
+    <ion-card class="history-card">
+      <ion-card-content>
+        <div class="detail-item">
+          <strong>ID:</strong>
+          <span>11271283481</span>
+        </div>
+        <div class="detail-item">
+          <strong>Tanggal:</strong>
+          <span>Minggu 12 April 2025</span>
+        </div>
+        <div class="detail-item">
+          <strong>Jam:</strong>
+          <span>12:00</span>
+        </div>
+        <div class="detail-item">
+          <strong>Nama:</strong>
+          <span>Azdhar Ganteng</span>
+        </div>
+
+        <!-- Judul menu -->
+        <div class="menu-header">
+          <span>Nama Menu</span>
+          <span>Qty</span>
+          <span>Harga</span>
+        </div>
+
+        <!-- Contoh isi menu -->
+        <div class="menu-row">
+          <span>Ayam Geprek</span>
+          <span>1</span>
+          <span>Rp 22.000</span>
+        </div>
+        <div class="menu-row">
+          <span>Nasi Goreng</span>
+          <span>2</span>
+          <span>Rp 40.000</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Catatan:</strong>
+          <span>Tanpa sambal</span>
+        </div>
+
+        <!-- Pilihan metode pembayaran -->
+        <label for="payment" class="label-payment">Metode Pembayaran</label>
+        <select id="payment" name="payment" class="select-payment">
+          <option value="" disabled selected>Pilih Pembayaran</option>
+          <option value="bri">BRI</option>
+          <option value="bca">BCA</option>
+          <option value="midtrans">Midtrans</option>
+        </select>
+        <ion-button expand="block" color="primary" style="margin-top: 20px;">
+          Bayar Sekarang
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

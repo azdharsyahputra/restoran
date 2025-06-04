@@ -1,0 +1,179 @@
+ion-content {
+    --background: #ffffff;
+}
+
+.container {
+    background-color: white;
+    height: 100%;
+    padding: 16px;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-title {
+    flex: 2;
+    color: black;
+    font-size: 20px;
+    margin-left: 110px;
+}
+
+.icon {
+    color: black;
+    font-size: 20px;
+}
+
+.icon2 {
+    flex: 0.5;
+    color: black;
+    font-size: 20px;
+}
+.process-card {
+  margin-bottom: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.process-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #555;
+}
+
+.step-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #999;
+}
+
+.step-icon ion-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.step-icon.active {
+  color: #3880ff;
+  font-weight: bold;
+}
+
+.arrow ion-icon {
+  font-size: 18px;
+  color: #ccc;
+  margin: 0 6px;
+}
+.category {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 0 8px;
+}
+
+.category-button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 12px;
+  padding: 12px 8px;
+  margin: 0 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.category-button:hover {
+  background-color: #d9d9d9;
+}
+
+.category-button .logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.category-button h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  user-select: none;
+  text-align: center;
+}
+.popular {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.popular-item {
+  flex: 1 1 calc(33.33% - 10px); /* 3 kolom, bisa menyesuaikan */
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.popular-item img.logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.popular-item h3 {
+  margin: 4px 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.popular-item .price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.popular-item .price h3 {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.popular-item .add-icon {
+  font-size: 24px;
+  color: #28a745;
+  cursor: pointer;
+}
+.popular-item {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+  font-weight: bold;
+  z-index: 1;
+}

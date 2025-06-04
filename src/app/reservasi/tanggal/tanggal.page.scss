@@ -1,0 +1,100 @@
+ion-content {
+    --background: #ffffff;
+}
+
+.container {
+    background-color: white;
+    height: 100%;
+    padding: 16px;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-title {
+    flex: 2;
+    color: black;
+    font-size: 20px;
+    margin-left: 110px;
+}
+
+.icon {
+    color: black;
+    font-size: 20px;
+}
+
+.icon2 {
+    flex: 0.5;
+    color: black;
+    font-size: 20px;
+}
+.date-picker {
+  width: 100%;
+  margin-top: 16px;
+  --background: #f9f9f9;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  border-radius: 8px;
+  --placeholder-color: #999;
+  --color: #000;
+}
+.selected-date-info {
+  font-size: 30px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+.date-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+}
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+.process-card {
+  margin-bottom: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.process-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #555;
+}
+
+.step-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #999;
+}
+
+.step-icon ion-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.step-icon.active {
+  color: #3880ff;
+  font-weight: bold;
+}
+
+.arrow ion-icon {
+  font-size: 18px;
+  color: #ccc;
+  margin: 0 6px;
+}

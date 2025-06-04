@@ -1,0 +1,116 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="header">
+      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <div class="header-title">
+        <p style="color: black;">Reservasi</p>
+      </div>
+      <div class="icon-header">
+        <ion-icon name="close-outline" class="icon2"></ion-icon>
+      </div>
+    </div>
+    <ion-card class="process-card">
+      <ion-card-content>
+        <div class="process-icons">
+          <div class="step-icon">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>Tanggal</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon active">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>Waktu</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon">
+            <ion-icon name="restaurant-outline"></ion-icon>
+            <span>Menu</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon">
+            <ion-icon name="card-outline"></ion-icon>
+            <span>Bayar</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <div class="pagi">
+      <h3>Sarapan</h3>
+      <div class="jam">
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'pagi1' }" 
+                  (click)="selectJam('pagi1')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'pagi2' }" 
+                  (click)="selectJam('pagi2')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'pagi3' }" 
+                  (click)="selectJam('pagi3')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+    <div class="siang">
+      <h3>Makan Siang</h3>
+      <div class="jam">
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'siang1' }" 
+                  (click)="selectJam('siang1')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'siang2' }" 
+                  (click)="selectJam('siang2')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'siang3' }" 
+                  (click)="selectJam('siang3')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+    <div class="malam">
+      <h3>Makan Malam</h3>
+      <div class="jam">
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'malam1' }" 
+                  (click)="selectJam('malam1')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'malam2' }" 
+                  (click)="selectJam('malam2')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+
+        <ion-card class="jam-card" 
+                  [ngClass]="{ 'selected': selectedJam === 'malam3' }" 
+                  (click)="selectJam('malam3')">
+          <ion-card-content>09:00 - 11:00</ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+<div class="total-orang">
+  <p style="color: black; margin-left: 10px;">Total Orang</p>
+  <div class="form-orang" style="margin-left: 10px;">
+    <div style="color: black; margin-right: 20px;">Kapasitas 20 Orang</div>
+      <ion-button size="small" shape="round" color="dark">-</ion-button>
+      <ion-input type="number" value="1" min="1" max="20" readonly style="width: 50px; text-align: center; color: black;"></ion-input>
+      <ion-button size="small" shape="round" color="dark">+</ion-button>
+  </div>
+</div>
+  </div>
+</ion-content>

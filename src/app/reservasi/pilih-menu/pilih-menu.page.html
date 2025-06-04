@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="header">
+      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <div class="header-title">
+        <p style="color: black;">Reservasi</p>
+      </div>
+      <div class="icon-header">
+        <ion-icon name="close-outline" class="icon2"></ion-icon>
+      </div>
+    </div>
+    <ion-card class="process-card">
+      <ion-card-content>
+        <div class="process-icons">
+          <div class="step-icon">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>Tanggal</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>Waktu</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon active">
+            <ion-icon name="restaurant-outline"></ion-icon>
+            <span>Menu</span>
+          </div>
+          <div class="arrow"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+          <div class="step-icon">
+            <ion-icon name="card-outline"></ion-icon>
+            <span>Bayar</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <div class="category" style="margin-top: 50px;">
+      <div class="category-button">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
+        <h3>All</h3>
+      </div>
+      <div class="category-button">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
+        <h3>Snack</h3>
+      </div>
+      <div class="category-button">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
+        <h3>Food</h3>
+      </div>
+      <div class="category-button">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
+        <h3>Drink</h3>
+      </div>
+    </div>
+    <div class="popular" style="margin-top: 20px;">
+      <div class="popular-item" *ngFor="let item of itemList; let i = index">
+        
+        <!-- Bulatan merah angka -->
+        <div class="badge" *ngIf="item.jumlah > 0">{{ item.jumlah }}</div>
+        
+        <img src="assets/img/{{ item.gambar }}" alt="{{ item.nama }}" class="logo">
+        <h3>{{ item.nama }}</h3>
+        <div class="price">
+          <h3>Rp. {{ item.harga | number:'1.0-0' }}</h3>
+          <ion-icon name="add-circle-outline" class="add-icon" (click)="tambah(i)"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
