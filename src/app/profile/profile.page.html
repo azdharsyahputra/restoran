@@ -11,8 +11,10 @@
     <!-- Bagian View Profile -->
     <div class="profile-container">
       <img src="assets/icon/ajar.jpg" alt="Profile Picture" class="profile-picture">
-      <h2 class="username">Ajar</h2>
-      <p class="email">ajarexample.com</p>
+<h2 class="username">{{ user.nama }}</h2>
+<p class="email">{{ user.email }}</p>
+
+
 
       <ion-button expand="block" color="primary" routerLink="/edit-profile">Edit Profile</ion-button>
       <ion-button expand="block" color="primary" routerLink="/edit-profile">Chat Admin</ion-button>

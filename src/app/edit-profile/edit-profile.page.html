@@ -3,20 +3,27 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="edit-container">
-    <img src="assets/icon/ajar.jpg" alt="Profile Picture" class="profile-picture">
-    <ion-button expand="block" fill="outline" color="medium">Change Photo</ion-button>
+     <img [src]="user.foto || 'assets/icon/ajar.jpg'" alt="Profile Picture" class="profile-picture">
+
+  <!-- Input file tersembunyi -->
+  <input type="file" accept="image/*" #fileInput style="display:none" (change)="onFileSelected($event)">
+
+  <!-- Tombol trigger buka file manager -->
+  <ion-button expand="block" fill="outline" color="medium" (click)="fileInput.click()">
+    Change Photo
+  </ion-button>
 
     <ion-item>
       <ion-label position="stacked" style="color: black;">Name</ion-label>
-      <ion-input type="text" value="Ajar" style="color: black;"></ion-input>
+      <ion-input type="text" [(ngModel)]="user.nama" style="color: black;"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked" style="color: black;">Email</ion-label>
-      <ion-input type="email" value="ajar@example.com" style="color: black;"></ion-input>
-    </ion-item>
+  <ion-label position="stacked" style="color: black;">Email</ion-label>
+  <ion-input type="email" [(ngModel)]="user.email" style="color: black;" readonly></ion-input>
+</ion-item>
 
-    <ion-button expand="block" color="success">Save Changes</ion-button>
+    <ion-button expand="block" color="success" (click)="saveProfile()">Save Changes</ion-button>
   </div>
 </ion-content>
 
