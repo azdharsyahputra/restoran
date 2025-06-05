@@ -84,6 +84,14 @@ const routes: Routes = [
     loadChildren: () => import('./konfirmasi-reservasi/konfirmasi-reservasi.module').then(m => m.KonfirmasiReservasiPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'status-meja',
+    loadChildren: () => import('./status-meja/status-meja.module').then( m => m.StatusMejaPageModule)
+  },
+  {
+    path: 'history-reservasi',
+    loadChildren: () => import('./history-reservasi/history-reservasi.module').then( m => m.HistoryReservasiPageModule)
+  },
 
 
 
