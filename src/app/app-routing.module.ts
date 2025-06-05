@@ -60,6 +60,20 @@ const routes: Routes = [
     loadChildren: () => import('./reservasi/payment/payment.module').then( m => m.PaymentPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'meja-pelayan',
+    loadChildren: () => import('./meja-pelayan/meja-pelayan.module').then( m => m.MejaPelayanPageModule)
+  },
+  {
+    path: 'konfirmasi-meja',
+    loadChildren: () => import('./konfirmasi-meja/konfirmasi-meja.module').then( m => m.KonfirmasiMejaPageModule)
+  },
+  {
+    path: 'konfirmasi-reservasi',
+    loadChildren: () => import('./konfirmasi-reservasi/konfirmasi-reservasi.module').then( m => m.KonfirmasiReservasiPageModule)
+  },
+
+
 
 ];
 

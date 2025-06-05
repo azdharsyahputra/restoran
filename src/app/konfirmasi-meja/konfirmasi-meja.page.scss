@@ -1,0 +1,107 @@
+ion-content {
+    --background: #ffffff;
+}
+
+.container {
+    background-color: white;
+    height: 100%;
+    padding: 16px;
+}
+.bottom-navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 0;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #444;
+}
+
+.nav-button ion-icon {
+  font-size: 40px;
+  margin-bottom: 2px;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-title {
+    flex: 2;
+    color: black;
+    font-size: 20px;
+    margin-left: 85px;
+}
+
+.icon {
+    color: black;
+    font-size: 20px;
+}
+
+.icon2 {
+    flex: 0.5;
+    color: black;
+    font-size: 20px;
+}
+.history-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  color: #333;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+.detail-item {
+  margin: 16px auto;
+  width: 90%;
+  max-width: 400px;
+
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background-color: transparent;
+    appearance: none; /* menghilangkan panah default di beberapa browser */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+  }
+}
+.button-group {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+
+  ion-button {
+    border-radius: 12px;
+    font-weight: bold;
+    width: 200px;
+  }
+}
