@@ -76,7 +76,7 @@ export class LoginPage implements OnInit {
     if (role === 'Pelanggan') {
       this.router.navigate(['../home']);
     } else if (role === 'Pelayan') {
-      this.router.navigate(['/pelayan-home']);
+      this.router.navigate(['../meja-pelayan']);
     } else if (role === 'Koki') {
       this.router.navigate(['/regist']);
     } else if (role === 'Admin') {

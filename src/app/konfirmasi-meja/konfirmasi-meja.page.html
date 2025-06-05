@@ -4,42 +4,58 @@
 <ion-content [fullscreen]="true">
   <div class="container">
     <div class="header">
-      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <ion-icon name="arrow-back-outline" class="icon" [routerLink]="['/meja-pelayan']"></ion-icon>
       <div class="header-title">
         <p style="color: black;"></p>
       </div>
       <div class="icon-header">
-        
+
       </div>
     </div>
 
     <!-- Card Detail History -->
-     <ion-card class="history-card">
+    <ion-card class="history-card">
       <ion-card-content>
         <div class="detail-item">
           <strong><ion-icon name="person"></ion-icon></strong>
-          <span>Muhammad Azdhar</span>
+          <span>{{ reservasiDetail?.nama_pengguna || reservasiDetail?.nama }}</span>
         </div>
         <div class="detail-item">
           <strong><ion-icon name="time-outline"></ion-icon></strong>
-          <span>17:00</span>
+          <span>{{ reservasiDetail?.tanggal || reservasiDetail?.waktu }}</span>
         </div>
         <div class="detail-item">
           <strong><ion-icon name="people"></ion-icon></strong>
-          <span>2 Orang</span>
+          <span>{{ reservasiDetail?.jumlah_tamu || reservasiDetail?.jumlahTamu }} Orang</span>
         </div>
+
+        <!-- dropdon -->
         <div class="detail-item">
-          <select>
+          <label for="mejaSelect" style="font-weight: bold; display: block; margin-bottom: 6px;">
+            Pilih Meja
+          </label>
+          <select id="mejaSelect" [(ngModel)]="reservasiDetail.mejaDipilih"
+            style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px;">
             <option value="" disabled selected hidden>Pilih Meja</option>
-            <option value="3">No 3 - 3 Orang</option>
-            <option value="5">No 5 - 2 Orang</option>
+            <option *ngFor="let meja of mejaTersedia" [value]="meja.id">
+              No {{ meja.nomor }} - {{ meja.kapasitas }} Orang
+            </option>
           </select>
         </div>
+
       </ion-card-content>
     </ion-card>
-    <div class="button-group">
-      <ion-button expand="block" color="primary">Konfirmasi</ion-button>
-      <ion-button expand="block" color="danger">Batal</ion-button>
+
+    <div class="button-group" style="margin-top: 16px;">
+      <ion-button expand="block" color="primary" (click)="konfirmasi()" [disabled]="!reservasiDetail?.mejaDipilih">
+        Konfirmasi
+      </ion-button>
+
+      <ion-button expand="block" color="danger" (click)="batal()">
+        Batal
+      </ion-button>
     </div>
+
+
   </div>
 </ion-content>
