@@ -91,7 +91,7 @@ const routes: Routes = [
   {
     path: 'history-reservasi',
     loadChildren: () => import('./history-reservasi/history-reservasi.module').then( m => m.HistoryReservasiPageModule)
-  },
+    },
 
 
 
