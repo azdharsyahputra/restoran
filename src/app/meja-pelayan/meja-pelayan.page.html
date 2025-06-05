@@ -7,13 +7,15 @@
       <img src="assets/icon/ajar.jpg" alt="logo" class="logo">
       <div class="header-title">
         <p>Selamat Datang,</p>
-        <p>Azdhar</p>
+        <p>{{ namaUser }}</p> <!-- bind ke variabel namaUser -->
       </div>
       <div class="icon-header">
-        
       </div>
     </div>
-    <div class="card-meja">
+
+
+
+    <!-- <div class="card-meja">
       <div class="user-meja">
         <div><ion-icon name="person-outline"></ion-icon></div>
         <div>Ajar Ganteng</div>
@@ -23,16 +25,35 @@
         <div>19:00-21:00</div>
       </div>
     </div>
-        <div class="card-meja">
+    <div class="card-meja">
       <div class="user-meja">
         <div><ion-icon name="person-outline"></ion-icon></div>
         <div>Hikaru Sang Colikiawan</div>
       </div>
       <div class="waktu-meja">
         <div><ion-icon name="time-outline"></ion-icon></div>
-        <div>12:00-14:00</div>
+        <div>12:00-14:00</div> 
+      </div>
+    </div> -->
+    <div *ngIf="reservasi && reservasi.length > 0; else tidakAdaData">
+      <div class="card-meja" *ngFor="let item of reservasi" (click)="bukaHalamanKonfirmasi(item.id)">
+        <div class="user-meja">
+          <div><ion-icon name="person-outline"></ion-icon></div>
+          <div>{{ item.nama_pengguna }}</div>
+        </div>
+        <div class="waktu-meja">
+          <div><ion-icon name="time-outline"></ion-icon></div>
+          <div>{{ formatSesi(item.sesi) }}</div>
+        </div>
       </div>
     </div>
+    <ng-template #tidakAdaData>
+      <p>Tidak ada data reservasi.</p>
+    </ng-template>
+
+
+
+
     <!-- footer -->
     <ion-footer>
       <div class="bottom-navbar">
