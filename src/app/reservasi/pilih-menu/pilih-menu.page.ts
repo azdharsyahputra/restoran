@@ -92,14 +92,14 @@ export class PilihMenuPage implements OnInit {
       .map(item => ({
         menu_id: item.id,
         jumlah: item.jumlah,
-        catatan: '',
-        nama: item.nama,      // Tambahkan nama
-        harga: item.harga     // Tambahkan harga
+        catatan: item.catatan || '',    // ambil catatan dari item
+        nama: item.nama,
+        harga: item.harga
       }));
+
     this.reservasiService.setPesanan(pesanan);
     console.log('Pesanan tersimpan sementara:', pesanan);
   }
-
 
   // Cek ada pesanan atau tidak
   adaPesanan(): boolean {
@@ -115,10 +115,51 @@ export class PilihMenuPage implements OnInit {
     console.log('Pesanan dibatalkan, data pesanan saat ini:', this.reservasiService.getReservasiData().pesanan);
   }
 
+  // konfirmasiPesanan() {
+  //   console.log('Pesanan dikonfirmasi, data pesanan:', this.reservasiService.getReservasiData().pesanan);
+  //   this.router.navigate(['/payment']);
+  // }
   konfirmasiPesanan() {
-    console.log('Pesanan dikonfirmasi, data pesanan:', this.reservasiService.getReservasiData().pesanan);
-    this.router.navigate(['/payment']);
+    const reservasiData = this.reservasiService.getReservasiData();
+
+    // Validasi data reservasi
+    if (!reservasiData.tanggal || !reservasiData.sesi || !reservasiData.jumlah_tamu || !reservasiData.pesanan?.length) {
+      alert('Data reservasi belum lengkap!');
+      return;
+    }
+
+    // Ambil pengguna_id dan token dari localStorage
+    const pengguna_id = localStorage.getItem('pengguna_id');
+    const token = localStorage.getItem('token');
+
+    if (!pengguna_id || !token) {
+      alert('Pengguna belum login.');
+      return;
+    }
+
+    this.reservasiService.kirimReservasi(pengguna_id, token).subscribe({
+      next: (res) => {
+        console.log('Reservasi berhasil dikirim:', res);
+
+        // Simpan reservasi_id dari backend
+        const reservasi_id = res.data?.id || res.data?.reservasi_id;
+        if (!reservasi_id) {
+          alert('Reservasi berhasil tapi ID tidak ditemukan.');
+          return;
+        }
+
+        this.reservasiService.setReservasiID(reservasi_id);
+
+        // Navigasi ke halaman payment untuk lanjut bayar
+        this.router.navigate(['/payment']);
+      },
+      error: (err) => {
+        console.error('Gagal kirim reservasi:', err);
+        alert('Gagal mengirim reservasi. Silakan coba lagi.');
+      }
+    });
   }
+
 
 
 }

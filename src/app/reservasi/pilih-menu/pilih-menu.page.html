@@ -67,7 +67,12 @@
         <div class="price">
           <h3>Rp. {{ item.harga | number:'1.0-0' }}</h3>
           <ion-icon name="add-circle-outline" class="add-icon" (click)="tambah(i)"></ion-icon>
+          <ion-icon name="remove-circle-outline" class="remove-icon" (click)="kurang(i)"></ion-icon>
         </div>
+
+        <!-- Input catatan -->
+        <ion-textarea *ngIf="item.jumlah > 0" [(ngModel)]="item.catatan" placeholder="Masukkan catatan (opsional)"
+          auto-grow="true" rows="1" (ionChange)="updatePesananKeService()" style="margin-top: 5px;"></ion-textarea>
       </div>
     </div>
 
@@ -75,6 +80,8 @@
       <ion-button color="medium" (click)="cancelPesanan()">Cancel</ion-button>
       <ion-button color="primary" (click)="konfirmasiPesanan()">Konfirmasi</ion-button>
     </div>
+
+
 
   </div>
 </ion-content>
