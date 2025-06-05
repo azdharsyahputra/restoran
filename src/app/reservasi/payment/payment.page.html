@@ -30,14 +30,11 @@
           <span>{{ jam }}</span>
         </div>
 
-        <!-- <span>Azdhar Ganteng</span> -->
         <div class="detail-item">
           <strong>Nama:</strong>
           <span>{{ namaPengguna }}</span>
         </div>
 
-
-        <!-- Judul menu -->
         <div class="menu-header">
           <span>Nama Menu</span>
           <span>Qty</span>
@@ -50,29 +47,11 @@
           <span>Rp {{ (item.harga || 0) * item.jumlah | number:'1.0-0' }}</span>
         </div>
 
-
-        <!-- <div class="detail-item">
-          <strong>Catatan:</strong>
-          <span>Tanpa sambal</span>
-        </div> -->
-
-        <!-- Contoh catatan global untuk seluruh pesanan -->
         <div class="detail-item">
           <strong>Catatan:</strong>
           <textarea [(ngModel)]="catatanGlobal" placeholder="Masukkan catatan tambahan"></textarea>
         </div>
 
-        <!-- Pilihan metode pembayaran -->
-        <!-- <label for="payment" class="label-payment">Metode Pembayaran</label>
-        <select id="payment" name="payment" class="select-payment">
-          <option value="" disabled selected>Pilih Pembayaran</option>
-          <option value="bri">BRI</option>
-          <option value="bca">BCA</option>
-          <option value="midtrans">Midtrans</option>
-        </select> 
-        <ion-button expand="block" color="primary" style="margin-top: 20px;">
-          Bayar Sekarang
-        </ion-button> -->
 
         <label for="payment" class="label-payment">Metode Pembayaran</label>
         <select id="payment" name="payment" class="select-payment" [(ngModel)]="metodePembayaran">
@@ -82,7 +61,7 @@
           <option value="cod">COD</option>
         </select>
 
-        <ion-button expand="block" color="primary" style="margin-top: 20px;" (click)="submitReservasi()">
+        <ion-button expand="block" color="primary" style="margin-top: 20px;" (click)="submitPembayaran()">
           Bayar Sekarang
         </ion-button>
 

@@ -30,6 +30,9 @@ export interface ReservasiData {
 export class ReservasiService {
 
   private data: ReservasiData = {};
+  private reservasi_id: string = '';
+
+
 
   private apiUrl = environment.apiUrl;
 
@@ -72,9 +75,36 @@ export class ReservasiService {
     this.data = {};
   }
 
-  // kirimReservasi(): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/reservasi`, this.data);
+
+  // code buat ambil data per reservasi
+
+  setReservasiID(id: string) {
+    this.reservasi_id = id;
+  }
+
+  getReservasiID(): string {
+    return this.reservasi_id;
+  }
+
+  // kirimReservasi(pengguna_id: string, token: string): Observable<any> {
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${token}`,
+  //     'Content-Type': 'application/json'
+  //   });
+
+  //   const body = {
+  //     pengguna_id: pengguna_id,
+  //     tanggal: this.data.tanggal,
+  //     sesi: this.data.sesi,
+  //     jumlah_tamu: this.data.jumlah_tamu,
+  //     pesanan: this.data.pesanan,
+  //     metode_pembayaran: this.data.metode_pembayaran,
+  //     bukti_pembayaran: this.data.bukti_pembayaran
+  //   };
+
+  //   return this.http.post(`${this.apiUrl}/reservasi`, body, { headers });
   // }
+
   kirimReservasi(pengguna_id: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -86,9 +116,8 @@ export class ReservasiService {
       tanggal: this.data.tanggal,
       sesi: this.data.sesi,
       jumlah_tamu: this.data.jumlah_tamu,
-      pesanan: this.data.pesanan,
-      metode_pembayaran: this.data.metode_pembayaran,
-      bukti_pembayaran: this.data.bukti_pembayaran
+      pesanan: this.data.pesanan,   // pesanan sudah ada catatan di setiap itemnya
+      // Jangan kirim metode_pembayaran dan bukti_pembayaran di sini, nanti di payment
     };
 
     return this.http.post(`${this.apiUrl}/reservasi`, body, { headers });
