@@ -1,4 +1,3 @@
-// src/app/pages/profile/profile.page.ts
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 
@@ -17,10 +16,31 @@ export class ProfilePage implements OnInit {
     foto: ''
   };
 
-  constructor(private profileService: ProfileService) {}
+  constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
-    this.loadUserFromLocalStorage();
+    this.loadProfileFromAPI();
+  }
+
+  async loadProfileFromAPI() {
+    try {
+      const res: any = await this.profileService.getProfile();
+      const baseUrl = 'http://localhost:8000';
+
+      // Update user data dengan data dari API
+      this.user = {
+        ...res.data,
+        foto: res.data.foto ? `${baseUrl}${res.data.foto}` : ''
+      };
+
+      // Simpan ke localStorage supaya bisa dipakai di lain waktu
+      this.profileService.saveUser(this.user);
+    } catch (error) {
+      console.error('Gagal ambil profil dari API:', error);
+
+      // Kalau gagal API, fallback ke localStorage
+      this.loadUserFromLocalStorage();
+    }
   }
 
   loadUserFromLocalStorage() {
@@ -29,16 +49,6 @@ export class ProfilePage implements OnInit {
       this.user = userData;
     } else {
       console.log('Data user tidak ditemukan di localStorage');
-    }
-  }
-
-  async refreshProfileFromAPI() {
-    try {
-      const res: any = await this.profileService.getProfile();
-      this.user = res.data;
-      this.profileService.saveUser(this.user); // Simpan ke localStorage
-    } catch (error) {
-      console.error('Gagal ambil profil dari API:', error);
     }
   }
 }

@@ -10,9 +10,11 @@
     </div>
     <!-- Bagian View Profile -->
     <div class="profile-container">
-      <img src="assets/icon/ajar.jpg" alt="Profile Picture" class="profile-picture">
-<h2 class="username">{{ user.nama }}</h2>
-<p class="email">{{ user.email }}</p>
+      <!-- <img src="assets/icon/ajar.jpg" alt="Profile Picture" class="profile-picture"> -->
+      <img [src]="user.foto || 'assets/icon/ajar.jpg'" alt="Foto Profil" class="profile-picture" />
+
+      <h2 class="username">{{ user.nama }}</h2>
+      <p class="email">{{ user.email }}</p>
 
 
 
@@ -25,13 +27,14 @@
         <div class="nav-button">
           <ion-icon name="home-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/tanggal']">
           <ion-icon name="book-outline"></ion-icon>
         </div>
+
         <div class="nav-button">
           <ion-icon name="document-text-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/profile']">
           <ion-icon name="person-outline"></ion-icon>
         </div>
       </div>

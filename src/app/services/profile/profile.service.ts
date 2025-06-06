@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProfileService {
   private apiUrl = 'http://localhost:8000/api';
-  // http://localhost:8000/storage/profile/run.jpg
+  private baseUrl = 'http://localhost:8000';
 
   constructor(private http: HttpClient) {}
 
@@ -15,6 +15,7 @@ export class ProfileService {
     return localStorage.getItem('token');
   }
 
+  // Fungsi lama, tetap ada, untuk request GET profile langsung (raw dari backend)
   getProfile() {
     const token = this.getToken();
     const headers = new HttpHeaders({
@@ -24,25 +25,40 @@ export class ProfileService {
     return this.http.get(`${this.apiUrl}/profile`, { headers }).toPromise();
   }
 
+  // Fungsi baru: ambil profil + proses baseUrl foto supaya mudah dipakai di komponen
+  async loadUserProfile() {
+    try {
+      const res: any = await this.getProfile();
+      return {
+        ...res.data,
+        foto: res.data.foto ? `${this.baseUrl}${res.data.foto}` : ''
+      };
+    } catch (error) {
+      console.error('Gagal ambil profil:', error);
+      return null;
+    }
+  }
+
   saveUser(userData: any) {
     localStorage.setItem('user', JSON.stringify(userData));
   }
 
   getUserFromLocalStorage() {
     const nama = localStorage.getItem('nama');
-  const email = localStorage.getItem('email');
-  if (nama && email) {
-    return {
-      nama,
-      email,
-      telepon: '',
-      role: '',
-      foto: ''
-    };
+    const email = localStorage.getItem('email');
+    if (nama && email) {
+      return {
+        nama,
+        email,
+        telepon: '',
+        role: '',
+        foto: ''
+      };
+    }
+    return null;
   }
-  return null;
-}
 
+  // Fungsi update profile (PUT)
   updateProfile(data: any) {
     const token = this.getToken();
     const headers = new HttpHeaders({
