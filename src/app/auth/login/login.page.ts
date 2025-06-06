@@ -7,7 +7,7 @@ import { AlertController } from '@ionic/angular';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone:false,
+  standalone: false,
 })
 export class LoginPage implements OnInit {
 
@@ -15,11 +15,11 @@ export class LoginPage implements OnInit {
   password: string = '';
 
   constructor(
-    private route: ActivatedRoute, 
-    private router: Router, 
+    private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -39,6 +39,16 @@ export class LoginPage implements OnInit {
         }
       } else if (params['error']) {
         alert('Login gagal: ' + params['error']);
+      }
+    });
+
+    window.addEventListener('message', (event) => {
+      const { token, nama, email } = event.data;
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('nama', nama || '');
+        localStorage.setItem('email', email || '');
+        this.router.navigate(['/home']);
       }
     });
   }
