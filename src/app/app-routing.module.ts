@@ -24,49 +24,49 @@ const routes: Routes = [
     path: 'history',
     loadChildren: () => import('./history/history.module').then(m => m.HistoryPageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'history-detail',
     loadChildren: () => import('./history-detail/history-detail.module').then(m => m.HistoryDetailPageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'edit-profile',
     loadChildren: () => import('./edit-profile/edit-profile.module').then(m => m.EditProfilePageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'tanggal',
     loadChildren: () => import('./reservasi/tanggal/tanggal.module').then(m => m.TanggalPageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'jam',
     loadChildren: () => import('./reservasi/jam/jam.module').then(m => m.JamPageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'pilih-menu',
     loadChildren: () => import('./reservasi/pilih-menu/pilih-menu.module').then(m => m.PilihMenuPageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'payment',
     loadChildren: () => import('./reservasi/payment/payment.module').then(m => m.PaymentPageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'meja-pelayan',
@@ -92,6 +92,8 @@ const routes: Routes = [
     path: 'history-reservasi',
     loadChildren: () => import('./history-reservasi/history-reservasi.module').then( m => m.HistoryReservasiPageModule)
     },
+
+
 
 
 

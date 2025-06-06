@@ -3,15 +3,15 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="edit-container">
-     <img [src]="user.foto || 'assets/icon/ajar.jpg'" alt="Profile Picture" class="profile-picture">
+    <img [src]="user.foto || 'assets/icon/ajar.jpg'" alt="Profile Picture" class="profile-picture">
 
-  <!-- Input file tersembunyi -->
-  <input type="file" accept="image/*" #fileInput style="display:none" (change)="onFileSelected($event)">
+    <!-- Input file tersembunyi -->
+    <input type="file" accept="image/*" #fileInput style="display:none" (change)="onFileSelected($event)">
 
-  <!-- Tombol trigger buka file manager -->
-  <ion-button expand="block" fill="outline" color="medium" (click)="fileInput.click()">
-    Change Photo
-  </ion-button>
+    <!-- Tombol trigger buka file manager -->
+    <ion-button expand="block" fill="outline" color="medium" (click)="fileInput.click()">
+      Change Photo
+    </ion-button>
 
     <ion-item>
       <ion-label position="stacked" style="color: black;">Name</ion-label>
@@ -19,28 +19,29 @@
     </ion-item>
 
     <ion-item>
-  <ion-label position="stacked" style="color: black;">Email</ion-label>
-  <ion-input type="email" [(ngModel)]="user.email" style="color: black;" readonly></ion-input>
-</ion-item>
+      <ion-label position="stacked" style="color: black;">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="user.email" style="color: black;" readonly></ion-input>
+    </ion-item>
 
     <ion-button expand="block" color="success" (click)="saveProfile()">Save Changes</ion-button>
   </div>
 </ion-content>
 
-    <!-- Footer -->
-    <ion-footer>
-      <div class="bottom-navbar">
-        <div class="nav-button">
-          <ion-icon name="home-outline"></ion-icon>
-        </div>
-        <div class="nav-button">
-          <ion-icon name="book-outline"></ion-icon>
-        </div>
-        <div class="nav-button">
-          <ion-icon name="document-text-outline"></ion-icon>
-        </div>
-        <div class="nav-button" routerLink="/profile">
-          <ion-icon name="person-outline"></ion-icon>
-        </div>
-      </div>
-    </ion-footer>
+<!-- Footer -->
+<ion-footer>
+  <div class="bottom-navbar">
+    <div class="nav-button">
+      <ion-icon name="home-outline"></ion-icon>
+    </div>
+    <div class="nav-button" [routerLink]="['/tanggal']">
+      <ion-icon name="book-outline"></ion-icon>
+    </div>
+
+    <div class="nav-button">
+      <ion-icon name="document-text-outline"></ion-icon>
+    </div>
+    <div class="nav-button" [routerLink]="['/profile']">
+      <ion-icon name="person-outline"></ion-icon>
+    </div>
+  </div>
+</ion-footer>
