@@ -5,7 +5,7 @@
   <div class="container">
     <div class="header">
       <div class="search-wrapper">
-        <select class="search-input">
+        <select class="search-input" (change)="filterByStatus($event)">
           <option value="" disabled selected hidden>Status Reservasi</option>
           <option value="menunggu">Menunggu</option>
           <option value="diterima">Diterima</option>
@@ -16,25 +16,32 @@
       </div>
       <ion-icon name="scan" class="scan-icon"></ion-icon>
     </div>
-    <div class="card-meja">
+
+
+    <div  *ngFor="let reservasi of filteredReservasi" class="card-meja">
       <div class="user-meja">
         <div><ion-icon name="calendar-outline"></ion-icon></div>
-        <div>18 Maret 2004</div>
+        <div>{{ reservasi.tanggal | date:'dd MMMM yyyy' }}</div>
       </div>
       <div class="user-meja">
         <div><ion-icon name="clipboard-outline"></ion-icon></div>
-        <div>Meja 02</div>
+        <div>
+          <ng-container *ngFor="let meja of reservasi.meja; let last = last">
+            Meja No {{ meja.nomor }}<span *ngIf="!last">, </span>
+          </ng-container>
+        </div>
       </div>
       <div class="waktu-meja">
         <div><ion-icon name="time-outline"></ion-icon></div>
-        <div>19:00-21:00</div>
+        <div>{{ getJamDariSesi(reservasi.sesi) }}</div>
       </div>
       <div class="waktu-meja">
         <div><ion-icon name="checkbox"></ion-icon></div>
-        <div>Selesai</div>
+        <div>{{ reservasi.status }}</div>
       </div>
     </div>
-    <div class="card-meja">
+
+    <!-- <div class="card-meja">
       <div class="user-meja">
         <div><ion-icon name="calendar-outline"></ion-icon></div>
         <div>31 Maret 1999</div>
@@ -51,24 +58,25 @@
         <div><ion-icon name="checkbox"></ion-icon></div>
         <div>Menunggu</div>
       </div>
-    </div>
+    </div> -->
+
+
     <!-- footer -->
     <ion-footer>
       <div class="bottom-navbar">
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/meja-pelayan']">
           <ion-icon name="book-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/konfirmasi-reservasi']">
           <ion-icon name="document-text-outline"></ion-icon>
         </div>
-
         <div class="nav-button">
           <ion-icon name="fast-food-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/history-reservasi']">
           <ion-icon name="time-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/status-meja']">
           <ion-icon name="clipboard-outline"></ion-icon>
         </div>
       </div>
