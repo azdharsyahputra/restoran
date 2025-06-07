@@ -12,9 +12,6 @@
       <div class="icon-header">
       </div>
     </div>
-
-
-
     <!-- <div class="card-meja">
       <div class="user-meja">
         <div><ion-icon name="person-outline"></ion-icon></div>
@@ -57,20 +54,19 @@
     <!-- footer -->
     <ion-footer>
       <div class="bottom-navbar">
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/meja-pelayan']">
           <ion-icon name="book-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/konfirmasi-reservasi']">
           <ion-icon name="document-text-outline"></ion-icon>
         </div>
-
         <div class="nav-button">
           <ion-icon name="fast-food-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/history-reservasi']">
           <ion-icon name="time-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/status-meja']">
           <ion-icon name="clipboard-outline"></ion-icon>
         </div>
       </div>

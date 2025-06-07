@@ -1,60 +1,47 @@
-<ion-header [translucent]="true">
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <div class="container">
     <div class="header">
-    <div class="search-wrapper">
-      <input type="search" placeholder="Search..." class="search-input" />
-      <ion-icon name="search" class="search-icon"></ion-icon>
+      <div class="search-wrapper">
+        <input type="search" [(ngModel)]="searchQuery" placeholder="Search..." class="search-input" />
+        <ion-icon name="search" class="search-icon"></ion-icon>
+      </div>
+      <ion-icon name="scan" class="scan-icon"></ion-icon>
     </div>
-    <ion-icon name="scan" class="scan-icon"></ion-icon>
-    </div>
-    <div class="card-meja" style="background-color: rgb(110, 255, 110);">
-      <div class="user-meja">
+
+    <!-- Looping data reservasi -->
+    <div *ngFor="let reservasi of filteredReservasiList" class="card-meja"
+      style="background-color: rgb(255, 255, 255); margin-bottom: 12px; padding: 10px; border-radius: 8px; cursor:pointer;"
+      (click)="bukaDetail(reservasi.id)">
+      <div class="user-meja" style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
         <div style="color: #3880ff;">ID</div>
-        <div>12838123</div>
+        <div>{{ reservasi.id }}</div>
       </div>
-      <div class="user-meja">
+      <div class="user-meja" style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
         <div><ion-icon name="person-outline"></ion-icon></div>
-        <div>Ajar Ganteng</div>
+        <div>{{ reservasi.pengguna?.nama }}</div>
       </div>
-      <div class="waktu-meja">
+      <div class="waktu-meja" style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
         <div><ion-icon name="time-outline"></ion-icon></div>
-        <div>19:00-21:00</div>
+        <div>{{ reservasi.tanggal }} | {{ reservasi.sesi }}</div>
       </div>
     </div>
-    <div class="card-meja">
-      <div class="user-meja">
-        <div style="color: #3880ff;">ID</div>
-        <div>12838123</div>
-      </div>
-      <div class="user-meja">
-        <div><ion-icon name="person-outline"></ion-icon></div>
-        <div>Hikaru Sang Colikiawan</div>
-      </div>
-      <div class="waktu-meja">
-        <div><ion-icon name="time-outline"></ion-icon></div>
-        <div>12:00-14:00</div>
-      </div>
-    </div>
-    <!-- footer -->
+   
+    
     <ion-footer>
       <div class="bottom-navbar">
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/meja-pelayan']">
           <ion-icon name="book-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/konfirmasi-reservasi']">
           <ion-icon name="document-text-outline"></ion-icon>
         </div>
-
         <div class="nav-button">
           <ion-icon name="fast-food-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/history-reservasi']">
           <ion-icon name="time-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/status-meja']">
           <ion-icon name="clipboard-outline"></ion-icon>
         </div>
       </div>
