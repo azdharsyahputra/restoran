@@ -1,37 +1,38 @@
-<ion-header [translucent]="true">
-</ion-header>
+<ion-header [translucent]="true"></ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="container">
     <div class="header">
-      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <ion-icon name="arrow-back-outline" class="icon" (click)="goBack()"></ion-icon>
       <div class="header-title">
         <p style="color: black;">Detail Reservasi</p>
       </div>
       <div class="icon-header">
-        <ion-icon name="close-outline" class="icon2"></ion-icon>
+        <ion-icon name="close-outline" class="icon2" (click)="closePage()"></ion-icon>
       </div>
     </div>
 
     <!-- Card Detail History -->
-     <ion-card class="history-card">
+    <ion-card class="history-card" *ngIf="detailReservasi; else loading">
       <ion-card-content>
         <div class="detail-item">
           <strong>ID:</strong>
-          <span>11271283481</span>
+          <span>{{ detailReservasi.kode_reservasi }}</span>
         </div>
         <div class="detail-item">
           <strong>Tanggal:</strong>
-          <span>Minggu 12 April 2025</span>
+          <span>{{ detailReservasi.tanggal | date:'fullDate' }}</span>
         </div>
         <div class="detail-item">
           <strong>Jam :</strong>
-          <span>12:00</span>
+          <span>{{ detailReservasi.sesi }}</span>
         </div>
         <div class="detail-item">
           <strong>Nama :</strong>
-          <span>Azdhar Ganteng</span>
+          <span>{{ detailReservasi.pengguna?.nama }}</span>
         </div>
+
+        <!-- Header Menu -->
         <div class="detail-item">
           <div class="menu-detail" style="display: flex; flex-direction: row; gap: 60px;">
             <div class="detail-item">
@@ -45,29 +46,35 @@
             </div>
           </div>
         </div>
-        <div class="detail-item">
+
+        <!-- List Pesanan -->
+        <div *ngFor="let item of detailReservasi.pesanan" class="detail-item">
           <div class="menu-detail" style="display: flex; flex-direction: row; gap: 60px;">
             <div class="detail-item">
-              Azulllllllllllll
+              {{ item.menu?.nama || 'Nama Menu' }}
             </div>
             <div class="detail-item">
-              1
+              {{ item.jumlah }}
             </div>
             <div class="detail-item">
-              1.000000000
+              {{ item.menu?.harga | currency:'IDR':'symbol':'1.0-0':'id' }}
             </div>
           </div>
+          <div class="detail-item" style="margin-left: 10px;">
+            <em>Catatan: {{ item.catatan || '-' }}</em>
+          </div>
         </div>
-        <div class="detail-item">
-          <strong>Catatan :</strong>
-          <span>AANNNJJIIINNGGG</span>
-        </div>
+
         <div class="detail-item">
           <strong>Metode Pembayaran :</strong>
-          <span>BRI</span>
+          <span>{{ detailReservasi.pembayaran?.metode_pembayaran || '-' }}</span>
         </div>
       </ion-card-content>
     </ion-card>
+
+    <ng-template #loading>
+      <p>Loading...</p>
+    </ng-template>
 
     <!-- footer -->
     <ion-footer>

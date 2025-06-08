@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HistoriService } from '../services/histori/histori.service'; // pastikan path-nya sesuai
+// Tambahkan ini di bagian import
+import { ProfileService } from '../services/profile/profile.service';
+
 
 @Component({
   selector: 'app-history',
@@ -10,23 +13,34 @@ import { HistoriService } from '../services/histori/histori.service'; // pastika
 export class HistoryPage implements OnInit {
 
   historiList: any[] = [];
+  user: any = null;
 
-  constructor(private historiService: HistoriService) { }
+  constructor(
+    private historiService: HistoriService,
+    private profileService: ProfileService
+  ) {}
 
-  ngOnInit() {
-    this.loadHistori();
-  }
-
+  
   loadHistori() {
-    const penggunaId = 1; // sementara, nanti ambil dari auth/login
-    this.historiService.getHistoriReservasi(penggunaId).subscribe({
-      next: (data: any) => {
-        this.historiList = data;
+    this.historiService.getHistoriReservasi().subscribe({
+      next: (res: any) => {
+        if (res.status === 'success') {
+          this.historiList = res.data;
+        }
       },
       error: (err) => {
         console.error('Gagal memuat histori reservasi:', err);
       }
     });
   }
-
+  
+  async loadProfile() {
+    this.user = await this.profileService.loadUserProfile();
+    console.log('User profile:', this.user);
+  }
+  
+  ngOnInit() {
+    this.loadHistori();
+    this.loadProfile();
+  }
 }
