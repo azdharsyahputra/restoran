@@ -32,6 +32,10 @@
           <span>{{ detailReservasi.pengguna?.nama }}</span>
         </div>
 
+        <div class="detail-item">
+          <strong>jumlah tamu :</strong>
+          <span>{{ detailReservasi.jumlah_tamu }}</span>
+        </div>
         <!-- Header Menu -->
         <div class="detail-item">
           <div class="menu-detail" style="display: flex; flex-direction: row; gap: 60px;">
@@ -46,10 +50,20 @@
           <div class="menu-detail" style="display: flex; flex-direction: row; gap: 60px;">
             <div class="detail-item">{{ item.menu?.nama || 'Nama Menu' }}</div>
             <div class="detail-item">{{ item.jumlah }}</div>
+            <!-- <div class="detail-item">{{ item.catatan }}</div> -->
             <div class="detail-item">
               {{ convertToNumber(item.harga) | currency:'IDR':'symbol':'1.0-0':'id' }}
             </div>
           </div>
+        </div>
+
+        <div class="detail-item">
+          <strong>Catatan:</strong>
+          <ul class="catatan-list">
+            <li *ngFor="let item of detailReservasi.pesanan">
+               {{ item.catatan }}
+            </li>
+          </ul>
         </div>
 
         <div class="detail-item">
