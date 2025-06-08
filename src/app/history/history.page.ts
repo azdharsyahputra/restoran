@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoriService } from '../services/histori/histori.service'; // pastikan path-nya sesuai
-// Tambahkan ini di bagian import
+import { Router } from '@angular/router'; // <- tambahkan ini
+import { HistoriService } from '../services/histori/histori.service';
 import { ProfileService } from '../services/profile/profile.service';
-
 
 @Component({
   selector: 'app-history',
@@ -17,10 +16,15 @@ export class HistoryPage implements OnInit {
 
   constructor(
     private historiService: HistoriService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private router: Router // <- tambahkan ini juga di constructor
   ) {}
 
-  
+  ngOnInit() {
+    this.loadHistori();
+    this.loadProfile();
+  }
+
   loadHistori() {
     this.historiService.getHistoriReservasi().subscribe({
       next: (res: any) => {
@@ -33,14 +37,14 @@ export class HistoryPage implements OnInit {
       }
     });
   }
-  
+
   async loadProfile() {
     this.user = await this.profileService.loadUserProfile();
     console.log('User profile:', this.user);
   }
-  
-  ngOnInit() {
-    this.loadHistori();
-    this.loadProfile();
+
+  // Fungsi untuk navigasi ke halaman detail
+  goToDetail(id: number) {
+    this.router.navigate(['/history-detail', id]);
   }
 }
