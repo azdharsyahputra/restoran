@@ -27,7 +27,7 @@ const routes: Routes = [
     data: { roles: ['Pelanggan'] }
   },
   {
-    path: 'history-detail',
+    path: 'history-detail/:id',
     loadChildren: () => import('./history-detail/history-detail.module').then(m => m.HistoryDetailPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['Pelanggan'] }
