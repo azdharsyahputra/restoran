@@ -48,7 +48,7 @@ const routes: Routes = [
     path: 'tanggal',
     loadChildren: () => import('./reservasi/tanggal/tanggal.module').then(m => m.TanggalPageModule),
     canActivate: [AuthGuard],
-    data: { roles: ['Pelanggan'] }
+    // data: { roles: ['Pelanggan'] }
   },
   {
     path: 'jam',

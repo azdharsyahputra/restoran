@@ -21,11 +21,11 @@
         </div>
         <div class="detail-item">
           <strong>Tanggal:</strong>
-          <span>{{ detailReservasi.tanggal | date:'fullDate' }}</span>
+          <span>{{ detailReservasi.tanggal}}</span>
         </div>
         <div class="detail-item">
           <strong>Jam :</strong>
-          <span>{{ detailReservasi.sesi }}</span>
+          <span>{{ getJamDariSesi(detailReservasi.sesi) }}</span>
         </div>
         <div class="detail-item">
           <strong>Nama :</strong>
@@ -35,39 +35,35 @@
         <!-- Header Menu -->
         <div class="detail-item">
           <div class="menu-detail" style="display: flex; flex-direction: row; gap: 60px;">
-            <div class="detail-item">
-              Nama Menu
-            </div>
-            <div class="detail-item">
-              Qty
-            </div>
-            <div class="detail-item">
-              Harga
-            </div>
+            <div class="detail-item">Nama Menu</div>
+            <div class="detail-item">Qty</div>
+            <div class="detail-item">Harga</div>
           </div>
         </div>
 
         <!-- List Pesanan -->
         <div *ngFor="let item of detailReservasi.pesanan" class="detail-item">
           <div class="menu-detail" style="display: flex; flex-direction: row; gap: 60px;">
+            <div class="detail-item">{{ item.menu?.nama || 'Nama Menu' }}</div>
+            <div class="detail-item">{{ item.jumlah }}</div>
             <div class="detail-item">
-              {{ item.menu?.nama || 'Nama Menu' }}
+              {{ convertToNumber(item.harga) | currency:'IDR':'symbol':'1.0-0':'id' }}
             </div>
-            <div class="detail-item">
-              {{ item.jumlah }}
-            </div>
-            <div class="detail-item">
-              {{ item.menu?.harga | currency:'IDR':'symbol':'1.0-0':'id' }}
-            </div>
-          </div>
-          <div class="detail-item" style="margin-left: 10px;">
-            <em>Catatan: {{ item.catatan || '-' }}</em>
           </div>
         </div>
 
         <div class="detail-item">
+          <strong>Total Harga:</strong>
+          <!-- <span>{{ detailReservasi.total_harga }}</span> -->
+          <span>{{ convertToNumber(detailReservasi.total_harga) | currency:'IDR':'symbol':'1.0-0':'id' }}</span>
+
+        </div>
+
+
+        <div class="detail-item">
           <strong>Metode Pembayaran :</strong>
-          <span>{{ detailReservasi.pembayaran?.metode_pembayaran || '-' }}</span>
+          <span>{{ detailReservasi.pembayaran?.metode || '-' }}</span>
+
         </div>
       </ion-card-content>
     </ion-card>
@@ -79,16 +75,17 @@
     <!-- footer -->
     <ion-footer>
       <div class="bottom-navbar">
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/home']">
           <ion-icon name="home-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/tanggal']">
           <ion-icon name="book-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+
+        <div class="nav-button" [routerLink]="['/history']">
           <ion-icon name="document-text-outline"></ion-icon>
         </div>
-        <div class="nav-button">
+        <div class="nav-button" [routerLink]="['/profile']">
           <ion-icon name="person-outline"></ion-icon>
         </div>
       </div>
