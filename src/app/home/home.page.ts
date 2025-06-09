@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../services/menu/menu.service';
 import { environment } from 'src/environments/environment';
-
+import { ProfileService } from 'src/app/services/profile/profile.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -18,9 +18,10 @@ export class HomePage implements OnInit {
   imageBaseUrl = environment.imageBaseUrl;
   terlarisList: any[] = [];
 
-  constructor(private menuService: MenuService) { }
+  userProfile: any = null;
+  constructor(private menuService: MenuService, private ProfileService: ProfileService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.menuService.getAllMenu().subscribe((res: any) => {
       this.menuList = res;
       this.makananList = res.filter((m: any) => m.kategori.toLowerCase() === 'makanan');
@@ -29,10 +30,18 @@ export class HomePage implements OnInit {
       this.selectedItems = this.menuList;
       this.selectedTitle = 'SEMUA MENU';
     });
+
     this.menuService.getMenuTerlaris().subscribe((res: any) => {
       this.terlarisList = res;
     });
+
+    // Load user profile
+    this.userProfile = await this.ProfileService.loadUserProfile();
   }
+
+  // onImgError(event: any) {
+  //   event.target.src = 'assets/icon/sjar.jpg';
+  // }
 
 
   selectCategory(kategori: string) {
@@ -58,4 +67,5 @@ export class HomePage implements OnInit {
         this.selectedTitle = '';
     }
   }
+
 }
