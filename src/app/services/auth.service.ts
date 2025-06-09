@@ -1,3 +1,4 @@
+// src/app/services/auth.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -7,12 +8,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  register(data: any) {
+  // === API ===
+  register(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, data);
   }
 
@@ -20,19 +21,30 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, data);
   }
 
-  isLoggedIn(): boolean {
-    return localStorage.getItem('token') !== null;
+  // === SESSION HANDLING ===
+  saveSession(data: {
+    token: string,
+    role: string,
+    nama: string,
+    email: string,
+    pengguna_id: string
+  }) {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('role', data.role.trim());
+    localStorage.setItem('nama', data.nama);
+    localStorage.setItem('email', data.email);
+    localStorage.setItem('pengguna_id', data.pengguna_id);
   }
 
-  // getRole(): string | null {
-  //   return localStorage.getItem('role');
-  // }
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    return !!token && !!role;
+  }
 
   getRole(): string {
     return localStorage.getItem('role')?.trim() ?? '';
   }
-
-
 
   getUser(): any {
     return {
@@ -43,15 +55,7 @@ export class AuthService {
     };
   }
 
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('email');
-    localStorage.removeItem('nama');
-    localStorage.removeItem('pengguna_id');
+    localStorage.clear();
   }
 }

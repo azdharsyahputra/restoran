@@ -122,6 +122,22 @@ export class ReservasiService {
 
     return this.http.post(`${this.apiUrl}/reservasi`, body, { headers });
   }
+  getDetailReservasi(token: string, id: string): Observable<any> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.get(`${this.apiUrl}/reservasi/${id}`, { headers });
+}
+getDetailReservasiSelesai(token: string, id: string): Observable<any> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.get(`${this.apiUrl}/reservasi/${id}/selesai`, { headers });
+}
+
+
 
 }
 

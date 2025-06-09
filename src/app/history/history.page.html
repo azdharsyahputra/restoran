@@ -4,21 +4,39 @@
 <ion-content [fullscreen]="true">
   <div class="container">
     <h2 style="color: black; text-align: center;">History Reservasi</h2>
-    <div class="history-card">
+
+    <!-- Data User -->
+    <!-- <div class="history-card" *ngFor="let item of historiList" style="display: flex; align-items: center; gap: 15px;">
       <div class="image-history">
-        <img src="assets/icon/ajar.jpg" alt="iamge" class="image">
+        <img [src]="user?.foto" alt="Foto Profil" width="65" />
       </div>
       <div class="desc-history">
-        <p>Muhammad Azdhar Ganteng</p>
-        <p>12 April 2020</p>
+        <p>{{ user?.nama }}</p>
+        <p>{{ item.tanggal | date:'longDate' }}</p>
       </div>
-      <div class="price-history">
-        <p>Rp. 20.000</p>
+      <div class="price-history" style="margin-left:auto;">
+        <p>Rp. {{ item.total_harga | number }}</p>
+      </div>
+    </div> -->
+
+    <div class="history-card" *ngFor="let item of historiList" (click)="goToDetail(item.id)"
+      style="display: flex; align-items: center; gap: 15px; cursor: pointer;">
+      <div class="image-history">
+        <img [src]="user?.foto" alt="Foto Profil" width="65" />
+      </div>
+      <div class="desc-history">
+        <p>{{ user?.nama }}</p>
+        <p>{{ item.tanggal | date:'longDate' }}</p>
+      </div>
+      <div class="price-history" style="margin-left:auto;">
+        <p>Rp. {{ item.total_harga | number }}</p>
       </div>
     </div>
-    <div class="history-card">
+
+    <!-- contoh statis bisa dihapus kalau sudah ada dynamic list di atas -->
+    <!-- <div class="history-card">
       <div class="image-history">
-        <img src="assets/icon/ajar.jpg" alt="iamge" class="image">
+        <img src="assets/icon/ajar.jpg" alt="image" class="image" />
       </div>
       <div class="desc-history">
         <p>Muhammad Fadli</p>
@@ -27,23 +45,26 @@
       <div class="price-history">
         <p>Rp. 20.000</p>
       </div>
-    </div>
-    <!-- footer -->
-    <ion-footer>
-      <div class="bottom-navbar">
-        <div class="nav-button">
-          <ion-icon name="home-outline"></ion-icon>
-        </div>
-        <div class="nav-button">
-          <ion-icon name="book-outline"></ion-icon>
-        </div>
-        <div class="nav-button">
-          <ion-icon name="document-text-outline"></ion-icon>
-        </div>
-        <div class="nav-button">
-          <ion-icon name="person-outline"></ion-icon>
-        </div>
+    </div> -->
+
+  </div> <!-- Tutup container -->
+
+  <!-- Footer harus di luar ion-content -->
+  <ion-footer>
+    <div class="bottom-navbar">
+      <div class="nav-button" [routerLink]="['/home']">
+        <ion-icon name="home-outline"></ion-icon>
       </div>
-    </ion-footer>
-  </div>
+      <div class="nav-button" [routerLink]="['/tanggal']">
+        <ion-icon name="book-outline"></ion-icon>
+      </div>
+
+      <div class="nav-button" [routerLink]="['/history']">
+        <ion-icon name="document-text-outline"></ion-icon>
+      </div>
+      <div class="nav-button" [routerLink]="['/profile']">
+        <ion-icon name="person-outline"></ion-icon>
+      </div>
+    </div>
+  </ion-footer>
 </ion-content>

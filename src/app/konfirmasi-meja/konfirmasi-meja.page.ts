@@ -12,7 +12,7 @@ import { AlertController } from '@ionic/angular';
 export class KonfirmasiMejaPage implements OnInit {
   reservasiId!: number;
   reservasiDetail: any = {
-    mejaDipilih: null, // inisialisasi supaya tidak error di binding [(ngModel)]
+    mejaDipilih: null, 
   };
   mejaTersedia: any[] = [];
   loading: boolean = true;
@@ -25,13 +25,13 @@ export class KonfirmasiMejaPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.reservasiId = Number(this.route.snapshot.paramMap.get('id'));
+    this.reservasiId = Number(this.route.snapshot.paramMap.get('id')); 
     const token = localStorage.getItem('token') || '';
 
-    // Ambil daftar meja tersedia dari endpoint yang sesuai
+   
     this.pelayanService.getReservasi(token).subscribe({
       next: (response) => {
-        // Pastikan response.data.meja ada dan bertipe array
+        
         this.mejaTersedia = Array.isArray(response.data?.meja) ? response.data.meja : [];
       },
       error: (err) => {
@@ -39,11 +39,11 @@ export class KonfirmasiMejaPage implements OnInit {
       },
     });
 
-    // Ambil detail reservasi
+   
     this.pelayanService.getDetailReservasi(this.reservasiId, token).subscribe({
       next: (data) => {
         this.reservasiDetail = data.data || {};
-        // Pastikan properti mejaDipilih selalu ada supaya aman bind ngModel
+        
         if (!this.reservasiDetail.mejaDipilih) {
           this.reservasiDetail.mejaDipilih = null;
         }
@@ -57,7 +57,7 @@ export class KonfirmasiMejaPage implements OnInit {
           buttons: ['OK'],
         });
         await alert.present();
-        this.router.navigate(['/halaman-sebelumnya']);
+        this.router.navigate(['/meja-pelayan']);
       },
     });
   }

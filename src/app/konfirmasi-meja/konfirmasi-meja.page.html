@@ -28,6 +28,19 @@
           <strong><ion-icon name="people"></ion-icon></strong>
           <span>{{ reservasiDetail?.jumlah_tamu || reservasiDetail?.jumlahTamu }} Orang</span>
         </div>
+        <div class="detail-item">
+          <strong><ion-icon name="restaurant-outline"></ion-icon></strong>
+          <span>Menu Dipesan:</span>
+        </div>
+        <ul *ngIf="reservasiDetail?.pesanan?.length > 0" class="menu-list">
+          <li *ngFor="let item of reservasiDetail.pesanan">
+             {{ item.nama_menu }} - {{ item.jumlah }}x (Rp {{ item.harga | number:'1.0-0' }})
+          </li>
+        </ul>
+        <div *ngIf="reservasiDetail?.pesanan?.length === 0">
+          <em>Belum ada menu yang dipesan.</em>
+        </div>
+
 
         <!-- dropdon -->
         <div class="detail-item">
@@ -38,11 +51,11 @@
             style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px;">
             <option value="" disabled selected hidden>Pilih Meja</option>
             <option *ngFor="let meja of mejaTersedia" [value]="meja.id">
-              No {{ meja.nomor }} - {{ meja.kapasitas }} Orang
+              No {{ meja.nomor }} | {{ meja.kapasitas }} Orang | {{ meja.area }}
             </option>
           </select>
         </div>
-
+ 
       </ion-card-content>
     </ion-card>
 
