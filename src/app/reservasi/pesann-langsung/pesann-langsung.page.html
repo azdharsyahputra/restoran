@@ -1,0 +1,113 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="header">
+      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <div class="header-title">
+        <p style="color: black;">Pesan Langsung</p>
+      </div>
+      <div class="icon-header">
+        <ion-icon name="close-outline" class="icon2"></ion-icon>
+      </div>
+    </div>
+    <div class="search-wrapper">
+      <div style="color: black;">Pilih Meja</div>
+      <select class="search-input">
+        <option value="" disabled selected hidden>Status Reservasi</option>
+        <option value="meja1">Meja 1</option>
+        <option value="meja2">Meja 2</option>
+        <option value="meja3">Meja 3</option>
+        <option value="meja4">Meja 4</option>
+      </select>
+    </div>
+    <div class="menu-list">
+
+    <div class="category" style="margin-top: 50px;">
+      <div class="category-button" >
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
+        <h3>All</h3>
+      </div>
+      <div class="category-button">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
+        <h3>Snack</h3>
+      </div>
+      <div class="category-button">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
+        <h3>Food</h3>
+      </div>
+      <div class="category-button">
+        <img src="assets/icon/food.png" alt="logo" class="logo" />
+        <h3>Drink</h3>
+      </div>
+    </div>
+
+      <div class="card-menu">
+        <img src="assets/images/espresoo.jpg" alt="Espresso" class="menu-img" />
+        <div class="menu-info">
+          <div class="menu-name">Espresso</div>
+          <div class="menu-price">Rp 18.000</div>
+        </div>
+        <div class="menu-counter">
+          <button class="counter-btn">-</button>
+          <span class="counter">0</span>
+          <button class="counter-btn">+</button>
+        </div>
+      </div>
+
+      <div class="card-menu">
+        <img src="assets/images/latte.jpg" alt="Latte" class="menu-img" />
+        <div class="menu-info">
+          <div class="menu-name">Latte</div>
+          <div class="menu-price">Rp 22.000</div>
+        </div>
+        <div class="menu-counter">
+          <button class="counter-btn">-</button>
+          <span class="counter">0</span>
+          <button class="counter-btn">+</button>
+        </div>
+      </div>
+      <div class="card-menu">
+        <img src="assets/images/latte.jpg" alt="Latte" class="menu-img" />
+        <div class="menu-info">
+          <div class="menu-name">Latte</div>
+          <div class="menu-price">Rp 22.000</div>
+        </div>
+        <div class="menu-counter">
+          <button class="counter-btn">-</button>
+          <span class="counter">0</span>
+          <button class="counter-btn">+</button>
+        </div>
+      </div>
+      <div class="card-menu">
+        <img src="assets/images/latte.jpg" alt="Latte" class="menu-img" />
+        <div class="menu-info">
+          <div class="menu-name">Latte</div>
+          <div class="menu-price">Rp 22.000</div>
+        </div>
+        <div class="menu-counter">
+          <button class="counter-btn">-</button>
+          <span class="counter">0</span>
+          <button class="counter-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes-floating">
+      <textarea placeholder="Tambah catatan..."></textarea>
+    </div>
+
+    <!-- footer --> 
+    <ion-footer>
+    <div class="checkout-navbar">
+      <div class="checkout-left">
+        <div class="total-text">Total: Rp {{ totalHarga | number:'1.0-0' }}</div>
+        <small>Termasuk pajak & biaya layanan</small>
+      </div>
+      <div class="checkout-right">
+        <ion-button expand="block" color="primary" (click)="bayarSekarang()">
+          Bayar Sekarang
+        </ion-button>
+      </div>
+    </div>
+    </ion-footer>
+  </div>
+</ion-content>

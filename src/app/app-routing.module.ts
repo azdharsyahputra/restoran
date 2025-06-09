@@ -91,12 +91,12 @@ const routes: Routes = [
   {
     path: 'history-reservasi',
     loadChildren: () => import('./history-reservasi/history-reservasi.module').then( m => m.HistoryReservasiPageModule)
-    },
 
-
-
-
-
+  },
+  {
+    path: 'pesann-langsung',
+    loadChildren: () => import('./reservasi/pesann-langsung/pesann-langsung.module').then( m => m.PesannLangsungPageModule)
+  },
 ];
 
 @NgModule({
