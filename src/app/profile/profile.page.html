@@ -20,11 +20,15 @@
 
       <ion-button expand="block" color="primary" routerLink="/edit-profile">Edit Profile</ion-button>
       <ion-button expand="block" color="primary" routerLink="/edit-profile">Chat Admin</ion-button>
+      <!-- <ion-button expand="block" color="primary" routerLink="/"> Log Out</ion-button> -->
+      <ion-button expand="block" color="primary" (click)="logout()">
+        Log Out
+      </ion-button>
     </div>
     <!-- footer -->
     <ion-footer>
       <div class="bottom-navbar">
-        <div class="nav-button"  [routerLink]="['/home']">
+        <div class="nav-button" [routerLink]="['/home']">
           <ion-icon name="home-outline"></ion-icon>
         </div>
         <div class="nav-button" [routerLink]="['/tanggal']">

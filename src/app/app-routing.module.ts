@@ -86,16 +86,19 @@ const routes: Routes = [
   },
   {
     path: 'status-meja',
-    loadChildren: () => import('./status-meja/status-meja.module').then( m => m.StatusMejaPageModule)
+    loadChildren: () => import('./status-meja/status-meja.module').then( m => m.StatusMejaPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'history-reservasi',
-    loadChildren: () => import('./history-reservasi/history-reservasi.module').then( m => m.HistoryReservasiPageModule)
-
+    loadChildren: () => import('./history-reservasi/history-reservasi.module').then( m => m.HistoryReservasiPageModule),
+    canActivate: [AuthGuard]
+    
   },
   {
     path: 'pesann-langsung',
-    loadChildren: () => import('./reservasi/pesann-langsung/pesann-langsung.module').then( m => m.PesannLangsungPageModule)
+    loadChildren: () => import('./reservasi/pesann-langsung/pesann-langsung.module').then( m => m.PesannLangsungPageModule),
+    canActivate: [AuthGuard]
   },
 ];
 
