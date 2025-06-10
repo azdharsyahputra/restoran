@@ -9,7 +9,7 @@ export class ProfileService {
   private apiUrl = 'http://localhost:8000/api';
   private baseUrl = 'http://localhost:8000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getToken(): string | null {
     return localStorage.getItem('token');
@@ -67,4 +67,12 @@ export class ProfileService {
 
     return this.http.put(`${this.apiUrl}/profile`, data, { headers }).toPromise();
   }
+
+  clearUser() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+  }
+
+
 }

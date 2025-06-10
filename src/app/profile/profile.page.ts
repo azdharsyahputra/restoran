@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile/profile.service';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +18,11 @@ export class ProfilePage implements OnInit {
     foto: ''
   };
 
-  constructor(private profileService: ProfileService) { }
+  constructor(
+    private profileService: ProfileService,
+    private router: Router,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
     this.loadProfileFromAPI();
@@ -27,18 +33,14 @@ export class ProfilePage implements OnInit {
       const res: any = await this.profileService.getProfile();
       const baseUrl = 'http://localhost:8000';
 
-      // Update user data dengan data dari API
       this.user = {
         ...res.data,
         foto: res.data.foto ? `${baseUrl}${res.data.foto}` : ''
       };
 
-      // Simpan ke localStorage supaya bisa dipakai di lain waktu
       this.profileService.saveUser(this.user);
     } catch (error) {
       console.error('Gagal ambil profil dari API:', error);
-
-      // Kalau gagal API, fallback ke localStorage
       this.loadUserFromLocalStorage();
     }
   }
@@ -51,4 +53,30 @@ export class ProfilePage implements OnInit {
       console.log('Data user tidak ditemukan di localStorage');
     }
   }
+
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Konfirmasi Logout',
+      message: 'Apakah kamu yakin ingin keluar?',
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel'
+        },
+        {
+          text: 'Logout',
+          handler: () => {
+            // Hapus data user dari localStorage
+            this.profileService.clearUser();
+
+            // Redirect ke halaman login
+            this.router.navigate(['/login']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 }

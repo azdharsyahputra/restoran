@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <div class="container">
     <div class="header">
-      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <ion-icon name="arrow-back-outline" class="icon" [routerLink]="['/meja-pelayan']"></ion-icon>
       <div class="header-title">
         <p style="color: black;">Pesan Langsung</p>
       </div>
@@ -11,103 +11,71 @@
     </div>
     <div class="search-wrapper">
       <div style="color: black;">Pilih Meja</div>
-      <select class="search-input">
-        <option value="" disabled selected hidden>Status Reservasi</option>
-        <option value="meja1">Meja 1</option>
-        <option value="meja2">Meja 2</option>
-        <option value="meja3">Meja 3</option>
-        <option value="meja4">Meja 4</option>
+      <select class="search-input" [(ngModel)]="mejaDipilihId">
+        <option value="" disabled selected hidden>Pilih Meja</option>
+        <option *ngFor="let meja of daftarMeja" [value]="meja.id">
+          No {{ meja.nomor }} - Kapasitas {{ meja.kapasitas }}
+        </option>
       </select>
     </div>
+
+
+
+
     <div class="menu-list">
 
-    <div class="category" style="margin-top: 50px;">
-      <div class="category-button" >
-        <img src="assets/icon/food.png" alt="logo" class="logo" />
-        <h3>All</h3>
+      <div class="category" style="margin-top: 50px;">
+        <div class="category-button" [class.active]="kategoriAktif === 'All'" (click)="gantiKategori('All')">
+          <img src="assets/icon/allmenu.png" class="logo" />
+          <h3>All</h3>
+        </div>
+        <div class="category-button" [class.active]="kategoriAktif === 'Snack'" (click)="gantiKategori('Snack')">
+          <img src="assets/icon/snack.png" class="logo" />
+          <h3>Snack</h3>
+        </div>
+        <div class="category-button" [class.active]="kategoriAktif === 'Food'" (click)="gantiKategori('makanan')">
+          <img src="assets/icon/food.png" class="logo" />
+          <h3>Food</h3>
+        </div>
+        <div class="category-button" [class.active]="kategoriAktif === 'Drink'" (click)="gantiKategori('minuman')">
+          <img src="assets/icon/drink.png" class="logo" />
+          <h3>Drink</h3>
+        </div>
       </div>
-      <div class="category-button">
-        <img src="assets/icon/food.png" alt="logo" class="logo" />
-        <h3>Snack</h3>
+
+      <!-- list menu dari db -->
+      <div class="card-menu" *ngFor="let menu of menuTersaring">
+        <img [src]="getGambar(menu)" alt="{{ menu.nama }}" class="menu-img" />
+        <div class="menu-info">
+          <div class="menu-name">{{ menu.nama }}</div>
+          <div class="menu-price">Rp {{ menu.harga | number:'1.0-0' }}</div>
+        </div>
+        <div class="menu-counter">
+          <button class="counter-btn" (click)="kurangJumlah(menu)">-</button>
+          <span class="counter">{{ menu.jumlah }}</span>
+          <button class="counter-btn" (click)="tambahJumlah(menu)">+</button>
+        </div>
       </div>
-      <div class="category-button">
-        <img src="assets/icon/food.png" alt="logo" class="logo" />
-        <h3>Food</h3>
-      </div>
-      <div class="category-button">
-        <img src="assets/icon/food.png" alt="logo" class="logo" />
-        <h3>Drink</h3>
-      </div>
+
     </div>
 
-      <div class="card-menu">
-        <img src="assets/images/espresoo.jpg" alt="Espresso" class="menu-img" />
-        <div class="menu-info">
-          <div class="menu-name">Espresso</div>
-          <div class="menu-price">Rp 18.000</div>
-        </div>
-        <div class="menu-counter">
-          <button class="counter-btn">-</button>
-          <span class="counter">0</span>
-          <button class="counter-btn">+</button>
-        </div>
-      </div>
-
-      <div class="card-menu">
-        <img src="assets/images/latte.jpg" alt="Latte" class="menu-img" />
-        <div class="menu-info">
-          <div class="menu-name">Latte</div>
-          <div class="menu-price">Rp 22.000</div>
-        </div>
-        <div class="menu-counter">
-          <button class="counter-btn">-</button>
-          <span class="counter">0</span>
-          <button class="counter-btn">+</button>
-        </div>
-      </div>
-      <div class="card-menu">
-        <img src="assets/images/latte.jpg" alt="Latte" class="menu-img" />
-        <div class="menu-info">
-          <div class="menu-name">Latte</div>
-          <div class="menu-price">Rp 22.000</div>
-        </div>
-        <div class="menu-counter">
-          <button class="counter-btn">-</button>
-          <span class="counter">0</span>
-          <button class="counter-btn">+</button>
-        </div>
-      </div>
-      <div class="card-menu">
-        <img src="assets/images/latte.jpg" alt="Latte" class="menu-img" />
-        <div class="menu-info">
-          <div class="menu-name">Latte</div>
-          <div class="menu-price">Rp 22.000</div>
-        </div>
-        <div class="menu-counter">
-          <button class="counter-btn">-</button>
-          <span class="counter">0</span>
-          <button class="counter-btn">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="notes-floating">
-      <textarea placeholder="Tambah catatan..."></textarea>
-    </div>
-
-    <!-- footer --> 
     <ion-footer>
-    <div class="checkout-navbar">
-      <div class="checkout-left">
-        <div class="total-text">Total: Rp {{ totalHarga | number:'1.0-0' }}</div>
-        <small>Termasuk pajak & biaya layanan</small>
+      <div class="checkout-navbar">
+        <div class="checkout-left">
+          <div class="total-text">Total: Rp {{ totalHarga | number:'1.0-0' }}</div>
+          <small>Termasuk pajak & biaya layanan</small>
+        </div>
+        <div class="checkout-right">
+          <ion-button expand="block" color="primary" (click)="bayarSekarang()">
+            Bayar Sekarang
+          </ion-button>
+        </div>
       </div>
-      <div class="checkout-right">
-        <ion-button expand="block" color="primary" (click)="bayarSekarang()">
-          Bayar Sekarang
-        </ion-button>
-      </div>
-    </div>
+
+      <!-- Catatan umum -->
+      <!-- <ion-textarea placeholder="Catatan umum (opsional)" [(ngModel)]="catatanGlobal" autoGrow="true">
+      </ion-textarea> -->
     </ion-footer>
+
   </div>
 </ion-content>
