@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="header">
+      <ion-icon name="arrow-back-outline" class="icon"></ion-icon>
+      <div class="header-title">
+        <p style="color: black;">Detail Reservasi</p>
+      </div>
+      <div class="icon-header">
+        <ion-icon name="close-outline" class="icon2"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Card Detail History -->
+    <ion-card class="history-card">
+      <ion-card-content>
+        <div class="detail-item">
+          <strong>Tanggal:</strong>
+          <span>11 Juni 2025</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Jam:</strong>
+          <span>14:00</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Nama:</strong>
+          <span>Ajar</span>
+        </div>
+
+        <div class="menu-header">
+          <span>Nama Menu</span>
+          <span>Qty</span>
+          <span>Harga</span>
+        </div>
+
+        <div class="menu-row">
+          <span>Kopi Susu</span>
+          <span>2</span>
+          <span>Rp 30.000</span>
+        </div>
+        <div class="menu-row">
+          <span>Roti Bakar</span>
+          <span>1</span>
+          <span>Rp 15.000</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Catatan:</strong>
+          <textarea placeholder="Masukkan catatan tambahan"></textarea>
+        </div>
+
+        <label for="payment" class="label-payment">Metode Pembayaran</label>
+        <select id="payment" name="payment" class="select-payment">
+          <option value="" disabled selected>Pilih Pembayaran</option>
+          <option value="qris">QRIS</option>
+          <option value="transfer">Transfer</option>
+          <option value="cod">COD</option>
+        </select>
+
+        <ion-button expand="block" color="primary" style="margin-top: 20px;">
+          Bayar Sekarang
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

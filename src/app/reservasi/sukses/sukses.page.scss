@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.sukses-content {
+  --background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sukses-container {
+  margin-top: 60px;
+  padding: 20px;
+  width: 100%;
+}
+
+.sukses-icon {
+  font-size: 150px;
+  color: #000000;
+  margin-bottom: 24px;
+}
+
+.sukses-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: black;
+}
+
+.sukses-subtext {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.lihat-reservasi-btn {
+  --background: #5D58F2;
+  --border-radius: 16px;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.kembali-home-btn {
+  --background: #484767;
+  --border-radius: 16px;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 12px;
+  width: 80%;
+  align-self: center;
+  color: white;
+  font-weight: bold;
+}
