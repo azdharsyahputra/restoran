@@ -19,6 +19,11 @@
     </ion-item>
 
     <ion-item>
+       <ion-label position="stacked" style="color: black;">No Telepon</ion-label>
+      <ion-input [(ngModel)]="user.telepon" type="tel" (ionInput)="filterAngka($event)" style="color: black;"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label position="stacked" style="color: black;">Email</ion-label>
       <ion-input type="email" [(ngModel)]="user.email" style="color: black;" readonly></ion-input>
     </ion-item>
