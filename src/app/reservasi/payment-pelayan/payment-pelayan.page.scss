@@ -1,0 +1,80 @@
+ion-content {
+  --background: #ffffff;
+}
+
+.container {
+  background-color: white;
+  height: 100%;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+}
+
+.icon,
+.icon2 {
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+}
+
+.history-card {
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.menu-header, .menu-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  padding: 10px 0;
+  color: #444;
+}
+
+.menu-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  margin-top: 20px;
+}
+.label-payment {
+  color: black;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.select-payment {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}

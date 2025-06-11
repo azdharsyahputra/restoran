@@ -99,7 +99,15 @@ const routes: Routes = [
     path: 'pesann-langsung',
     loadChildren: () => import('./reservasi/pesann-langsung/pesann-langsung.module').then( m => m.PesannLangsungPageModule),
     canActivate: [AuthGuard]
+  },  {
+    path: 'payment-pelayan',
+    loadChildren: () => import('./reservasi/payment-pelayan/payment-pelayan.module').then( m => m.PaymentPelayanPageModule)
   },
+  {
+    path: 'sukses',
+    loadChildren: () => import('./reservasi/sukses/sukses.module').then( m => m.SuksesPageModule)
+  },
+
 ];
 
 @NgModule({
