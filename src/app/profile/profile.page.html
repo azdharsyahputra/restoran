@@ -13,13 +13,14 @@
       <!-- <img src="assets/icon/ajar.jpg" alt="Profile Picture" class="profile-picture"> -->
       <img [src]="user.foto || 'assets/icon/ajar.jpg'" alt="Foto Profil" class="profile-picture" />
 
-      <h2 class="username">{{ user.nama }}</h2>
-      <p class="email">{{ user.email }}</p>
-
-
+      <h2 class="username">Username | {{ user.nama }}</h2>
+      <p class="email">Email | {{ user.email }}</p>
+      <p class="email">Telrphone | {{ user.telepon }}</p>
+      
+ 
 
       <ion-button expand="block" color="primary" routerLink="/edit-profile">Edit Profile</ion-button>
-      <ion-button expand="block" color="primary" routerLink="/edit-profile">Chat Admin</ion-button>
+      <ion-button expand="block" color="primary" href="https://wa.me/6281211383432" target="_blank">Chat Admin</ion-button>
       <!-- <ion-button expand="block" color="primary" routerLink="/"> Log Out</ion-button> -->
       <ion-button expand="block" color="primary" (click)="logout()">
         Log Out
