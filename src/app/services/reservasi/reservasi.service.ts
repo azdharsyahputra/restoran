@@ -1,9 +1,7 @@
-
 import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface PesananItem {
   menu_id: number;
@@ -11,6 +9,13 @@ export interface PesananItem {
   catatan?: string;
   nama?: string;
   harga?: number;
+  menu?: Menu;
+}
+
+export interface Menu {
+  id: number;
+  nama: string;
+  harga: number | string;
 }
 
 export interface ReservasiData {
@@ -29,15 +34,13 @@ export interface ReservasiData {
 })
 export class ReservasiService {
 
+  private apiUrl = environment.apiUrl;
   private data: ReservasiData = {};
   private reservasi_id: string = '';
 
-
-
-  private apiUrl = environment.apiUrl;
-
   constructor(private http: HttpClient) { }
 
+  // ==================== Setters ====================
   setPengguna(pengguna_id: number) {
     this.data.pengguna_id = pengguna_id;
   }
@@ -67,6 +70,7 @@ export class ReservasiService {
     this.data.nama = nama;
   }
 
+  // ==================== Getters ====================
   getReservasiData(): ReservasiData {
     return this.data;
   }
@@ -75,9 +79,7 @@ export class ReservasiService {
     this.data = {};
   }
 
-
-  // code buat ambil data per reservasi
-
+  // ==================== Reservasi ID (untuk payment tracking) ====================
   setReservasiID(id: string) {
     this.reservasi_id = id;
   }
@@ -86,25 +88,7 @@ export class ReservasiService {
     return this.reservasi_id;
   }
 
-  // kirimReservasi(pengguna_id: string, token: string): Observable<any> {
-  //   const headers = new HttpHeaders({
-  //     'Authorization': `Bearer ${token}`,
-  //     'Content-Type': 'application/json'
-  //   });
-
-  //   const body = {
-  //     pengguna_id: pengguna_id,
-  //     tanggal: this.data.tanggal,
-  //     sesi: this.data.sesi,
-  //     jumlah_tamu: this.data.jumlah_tamu,
-  //     pesanan: this.data.pesanan,
-  //     metode_pembayaran: this.data.metode_pembayaran,
-  //     bukti_pembayaran: this.data.bukti_pembayaran
-  //   };
-
-  //   return this.http.post(`${this.apiUrl}/reservasi`, body, { headers });
-  // }
-
+  // ==================== API Call: Buat Reservasi ====================
   kirimReservasi(pengguna_id: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -116,29 +100,35 @@ export class ReservasiService {
       tanggal: this.data.tanggal,
       sesi: this.data.sesi,
       jumlah_tamu: this.data.jumlah_tamu,
-      pesanan: this.data.pesanan,   // pesanan sudah ada catatan di setiap itemnya
-      // Jangan kirim metode_pembayaran dan bukti_pembayaran di sini, nanti di payment
+      pesanan: this.data.pesanan
     };
 
     return this.http.post(`${this.apiUrl}/reservasi`, body, { headers });
   }
+
+  // ==================== API Call: Ambil Detail Reservasi (Untuk Halaman Payment) ====================
+  getDetailReservasiPembayaran(token: string, id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.apiUrl}/reservasi/${id}/detail-pembayaran`, { headers });
+  }
+
+  // ==================== API Lainnya (jika perlu) ====================
   getDetailReservasi(token: string, id: string): Observable<any> {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  return this.http.get(`${this.apiUrl}/reservasi/${id}`, { headers });
+    return this.http.get(`${this.apiUrl}/reservasi/${id}`, { headers });
+  }
+
+  getDetailReservasiSelesai(token: string, id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.apiUrl}/reservasi/${id}/selesai`, { headers });
+  }
 }
-getDetailReservasiSelesai(token: string, id: string): Observable<any> {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
-
-  return this.http.get(`${this.apiUrl}/reservasi/${id}/selesai`, { headers });
-}
-
-
-
-}
-
-
