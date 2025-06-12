@@ -5,11 +5,18 @@
     <p class="sukses-subtext" style="font-size: 25px; color: black;">
       Terima kasih sudah melakukan reservasi di resto kami
     </p>
-    <p class="sukses-subtext" style="font-size: 20px; color: black; margin-top: 150px;">
-      Reservasi pada Kamis, 17 April 2025 untuk 2 orang telah terkonfirmasi
+
+    <!-- <p class="sukses-subtext" style="font-size: 20px; color: black; margin-top: 150px;" *ngIf="reservasi">
+      Reservasi pada {{ reservasi.tanggal | date:'fullDate' }} untuk {{ reservasi.jumlah_tamu }} orang telah
+      terkonfirmasi
+    </p> -->
+
+    <p class="sukses-subtext" style="font-size: 20px; color: black; margin-top: 150px;" *ngIf="reservasi">
+      Reservasi pada {{ getTanggalIndonesia(reservasi.tanggal) }} untuk {{ reservasi.jumlah_tamu }} orang telah
+      terkonfirmasi
     </p>
 
-    <ion-button expand="block" class="lihat-reservasi-btn" routerLink="/riwayat-reservasi">
+    <ion-button expand="block" class="lihat-reservasi-btn" routerLink="/history">
       Lihat Reservasi Saya
     </ion-button>
 

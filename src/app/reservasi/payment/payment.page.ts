@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservasiService, PesananItem } from 'src/app/services/reservasi/reservasi.service';
-import { Router } from '@angular/router';
+import { PembayaranService } from 'src/app/services/payment/pembayaran.service';
+import { Router, ActivatedRoute } from '@angular/router';
+
+declare global {
+  interface Window {
+    snap: any;
+  }
+}
 
 @Component({
   selector: 'app-payment',
@@ -15,63 +22,146 @@ export class PaymentPage implements OnInit {
   sesi: string = '';
   jam: string = '';
   namaPengguna: string = '';
+  emailPengguna: string = '';
   catatanGlobal: string = '';
   metodePembayaran: string = '';
+  token: string = '';
+  reservasiId: string = '';
+  uploadBukti: File | null = null;
 
-  constructor(private reservasiService: ReservasiService, private router: Router) { }
+  constructor(
+    private reservasiService: ReservasiService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private pembayaranService: PembayaranService
+  ) { }
 
   ngOnInit() {
-    const data = this.reservasiService.getReservasiData();
+    this.token = localStorage.getItem('token') || '';
+    this.reservasiId = this.route.snapshot.paramMap.get('id') || '';
 
-    this.pesanan = data.pesanan || [];
-    this.tanggal = data.tanggal || '';
-    this.sesi = data.sesi || '';
-    this.namaPengguna = data.nama || '';
-
-    // Isi catatanGlobal dari catatan pesanan pertama (jika ada)
-    if (this.pesanan.length > 0) {
-      this.catatanGlobal = this.pesanan[0].catatan || '';
-    }
-
-    const sesiToJamMap: { [key: string]: string } = {
-      sarapan_1: '07:00',
-      sarapan_2: '10:00',
-      siang_1: '12:00',
-      siang_2: '14:00',
-      malam_1: '16:00',
-      malam_2: '19:00'
-    };
-    this.jam = sesiToJamMap[this.sesi] || '-';
-
-    if (!this.namaPengguna) {
-      const namaDariStorage = localStorage.getItem('nama');
-      if (namaDariStorage) this.namaPengguna = namaDariStorage;
-    }
-  }
-
-  updateCatatanPesanan() {
-    this.pesanan = this.pesanan.map(p => ({
-      ...p,
-      catatan: this.catatanGlobal || p.catatan || ''
-    }));
-    this.reservasiService.setPesanan(this.pesanan);
-  }
-
-  submitPembayaran() {
-    if (!this.metodePembayaran) {
-      alert('Pilih metode pembayaran terlebih dahulu!');
+    if (!this.token || !this.reservasiId) {
+      alert('Gagal mengambil data reservasi. Silakan kembali.');
+      this.router.navigate(['/tanggal']);
       return;
     }
 
-    this.updateCatatanPesanan();
+    this.reservasiService.getDetailReservasiPembayaran(this.token, this.reservasiId)
+      .subscribe({
+        next: (response) => {
+          if (response.status) {
+            const data = response.data;
+            this.pesanan = data.pesanan || [];
+            this.tanggal = data.tanggal || '';
+            this.sesi = data.sesi || '';
+            this.namaPengguna = data.pengguna?.nama || '';
+            this.emailPengguna = data.pengguna?.email || '';
 
-    this.reservasiService.setPembayaran(this.metodePembayaran);
+            const sesiToJamMap: { [key: string]: string } = {
+              sarapan_1: '07:00',
+              sarapan_2: '10:00',
+              siang_1: '12:00',
+              siang_2: '14:00',
+              malam_1: '16:00',
+              malam_2: '19:00'
+            };
+            this.jam = sesiToJamMap[this.sesi] || '-';
 
-    // TODO: Panggil endpoint pembayaran di backend jika perlu
-
-    alert('Metode pembayaran disimpan. Silakan lanjutkan proses pembayaran.');
-
-    // Contoh navigasi ke halaman konfirmasi pembayaran atau selesai
-    this.router.navigate(['/konfirmasi-pembayaran']);
+            if (this.pesanan.length > 0) {
+              this.catatanGlobal = this.pesanan[0].catatan || '';
+            }
+          } else {
+            alert('Gagal memuat detail reservasi.');
+          }
+        },
+        error: (err) => {
+          console.error('Error mengambil detail reservasi:', err);
+          alert('Terjadi kesalahan saat memuat data reservasi.');
+        }
+      });
   }
+
+  hitungTotalBayar(): number {
+    return this.pesanan.reduce((total, item) => {
+      const harga = Number(item.menu?.harga) || 0;
+      return total + (harga * item.jumlah);
+    }, 0);
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.uploadBukti = file;
+    }
+  }
+
+  uploadBuktiPembayaran() {
+    if (!this.uploadBukti) {
+      alert('Silakan pilih file bukti pembayaran terlebih dahulu!');
+      return;
+    }
+
+    this.pembayaranService.simpanManual(this.token, {
+      reservasi_id: this.reservasiId,
+      metode: this.metodePembayaran,
+      bukti: this.uploadBukti
+    }).subscribe({
+      next: (res: any) => {
+        if (res.status) {
+          alert('Pembayaran berhasil disimpan!');
+          this.router.navigate(['/sukses']); // sesuaikan rute tujuan
+        } else {
+          alert('Gagal menyimpan pembayaran!');
+        }
+      },
+      error: (err) => {
+        console.error('Error upload bukti:', err);
+        alert('Terjadi kesalahan saat upload bukti pembayaran.');
+      }
+    });
+  }
+
+  bayarSekarang() {
+    if (!this.reservasiId || !this.token) {
+      alert('Data tidak lengkap!');
+      return;
+    }
+
+    const totalBayar = this.hitungTotalBayar();
+
+    this.pembayaranService.getMidtransToken(
+      this.token,
+      this.reservasiId,
+      totalBayar,
+      this.namaPengguna,
+      this.emailPengguna
+    ).subscribe((res: any) => {
+      if (res.snapToken) {
+        window.snap.pay(res.snapToken, {
+          onSuccess: (result: any) => {
+            console.log('Pembayaran berhasil', result);
+            // alert('Pembayaran berhasil');
+            this.router.navigate(['/sukses', this.reservasiId]);
+          },
+          onPending: (result: any) => {
+            console.log('Menunggu pembayaran', result);
+            alert('Menunggu pembayaran diselesaikan');
+          },
+          onError: (result: any) => {
+            console.error('Pembayaran gagal', result);
+            alert('Pembayaran gagal. Silakan coba lagi.');
+          },
+          onClose: () => {
+            console.log('User menutup Snap');
+          }
+        });
+      } else {
+        alert('Gagal mendapatkan token pembayaran');
+      }
+    }, err => {
+      console.error(err);
+      alert('Terjadi kesalahan saat memproses pembayaran');
+    });
+  }
+
 }

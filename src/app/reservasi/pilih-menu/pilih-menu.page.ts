@@ -151,7 +151,8 @@ export class PilihMenuPage implements OnInit {
         this.reservasiService.setReservasiID(reservasi_id);
 
         // Navigasi ke halaman payment untuk lanjut bayar
-        this.router.navigate(['/payment']);
+        // this.router.navigate(['/payment']);
+        this.router.navigate(['/payment', reservasi_id]);
       },
       error: (err) => {
         console.error('Gagal kirim reservasi:', err);

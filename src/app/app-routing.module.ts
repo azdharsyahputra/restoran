@@ -63,7 +63,7 @@ const routes: Routes = [
     data: { roles: ['Pelanggan'] }
   },
   {
-    path: 'payment',
+    path: 'payment/:id',
     loadChildren: () => import('./reservasi/payment/payment.module').then(m => m.PaymentPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['Pelanggan'] }
@@ -99,13 +99,16 @@ const routes: Routes = [
     path: 'pesann-langsung',
     loadChildren: () => import('./reservasi/pesann-langsung/pesann-langsung.module').then( m => m.PesannLangsungPageModule),
     canActivate: [AuthGuard]
-  },  {
-    path: 'payment-pelayan',
-    loadChildren: () => import('./reservasi/payment-pelayan/payment-pelayan.module').then( m => m.PaymentPelayanPageModule)
   },
   {
-    path: 'sukses',
-    loadChildren: () => import('./reservasi/sukses/sukses.module').then( m => m.SuksesPageModule)
+    path: 'payment-pelayan',
+    loadChildren: () => import('./reservasi/payment-pelayan/payment-pelayan.module').then( m => m.PaymentPelayanPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'sukses/:id',
+    loadChildren: () => import('./reservasi/sukses/sukses.module').then( m => m.SuksesPageModule),
+    canActivate: [AuthGuard]
   },
 
 ];

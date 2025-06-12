@@ -14,12 +14,8 @@
     </div>
 
     <!-- Card Detail History -->
-    <ion-card class="history-card">
+    <!-- <ion-card class="history-card">
       <ion-card-content>
-        <!-- <div class="detail-item">
-          <strong>ID:</strong>
-          <span>11271283481</span>
-        </div> -->
         <div class="detail-item">
           <strong>Tanggal:</strong>
           <span>{{ tanggal }}</span>
@@ -47,12 +43,6 @@
           <span>Rp {{ (item.harga || 0) * item.jumlah | number:'1.0-0' }}</span>
         </div>
 
-        <div class="detail-item">
-          <strong>Catatan:</strong>
-          <textarea [(ngModel)]="catatanGlobal" placeholder="Masukkan catatan tambahan"></textarea>
-        </div>
-
-
         <label for="payment" class="label-payment">Metode Pembayaran</label>
         <select id="payment" name="payment" class="select-payment" [(ngModel)]="metodePembayaran">
           <option value="" disabled selected>Pilih Pembayaran</option>
@@ -68,6 +58,109 @@
 
 
       </ion-card-content>
+    </ion-card> -->
+
+    <!-- <ion-card class="history-card">
+
+      <ion-card-content>
+        <div class="detail-item">
+          <strong>Tanggal:</strong>
+          <span>{{ tanggal }}</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Jam:</strong>
+          <span>{{ jam }}</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Nama:</strong>
+          <span>{{ namaPengguna }}</span>
+        </div>
+
+        <div class="menu-header">
+          <span>Nama Menu</span>
+          <span>Qty</span>
+          <span>Harga</span>
+        </div>
+
+        <div class="menu-row" *ngFor="let item of pesanan">
+          <span>{{ item.menu?.nama || '-' }}</span>
+          <span>{{ item.jumlah }}</span>
+           <span>Rp {{ item.menu?.harga | number:'1.0-0' }}</span>
+
+        </div>
+
+        <ion-item lines="none">
+          <ion-label>
+            <h2><strong>Total Bayar: Rp {{ hitungTotalBayar() | number:'1.0-0' }}</strong></h2>
+          </ion-label>
+        </ion-item>
+
+        
+        <ion-button expand="block" color="primary" style="margin-top: 20px;">
+          Lanjut
+        </ion-button>
+      </ion-card-content>
+    </ion-card> -->
+
+
+    <ion-card class="history-card">
+      <ion-card-content>
+
+        <div class="detail-item">
+          <strong>Tanggal:</strong>
+          <span>{{ tanggal }}</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Jam:</strong>
+          <span>{{ jam }}</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Nama:</strong>
+          <span>{{ namaPengguna }}</span>
+        </div>
+
+        <div class="menu-header" style="margin-top: 20px; font-weight: bold;">
+          <span>Nama Menu</span>
+          <span>Qty</span>
+          <span>Harga</span>
+        </div>
+
+        <div class="menu-row" *ngFor="let item of pesanan" style="display: flex; justify-content: space-between;">
+          <span>{{ item.menu?.nama || '-' }}</span>
+          <span>{{ item.jumlah }}</span>
+          <span>Rp {{ item.menu?.harga | number:'1.0-0' }}</span>
+        </div>
+
+        <ion-item lines="none" style="margin-top: 16px;">
+          <ion-label class="ion-text-end">
+            <h2><strong>Total Bayar: Rp{{ hitungTotalBayar() | number:'1.0-0' }}</strong></h2>
+          </ion-label>
+        </ion-item>
+
+        <!-- <ion-item style="margin-top: 24px;">
+          <ion-label>Metode Pembayaran</ion-label>
+          <ion-select placeholder="Pilih Pembayaran" [(ngModel)]="metodePembayaran">
+            <ion-select-option value="qris">QRIS</ion-select-option>
+            <ion-select-option value="transfer">Transfer</ion-select-option>
+            <ion-select-option value="cod">COD</ion-select-option>
+          </ion-select>
+        </ion-item> -->
+
+        <ion-item *ngIf="metodePembayaran === 'transfer' || metodePembayaran === 'cod'" style="margin-top: 16px;">
+          <ion-label position="stacked">Upload Bukti Pembayaran</ion-label>
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+        </ion-item>
+
+        <ion-button expand="block" color="primary" style="margin-top: 24px;" (click)="bayarSekarang()">
+          Bayar Sekarang
+        </ion-button>
+
+      </ion-card-content>
     </ion-card>
+
   </div>
 </ion-content>
