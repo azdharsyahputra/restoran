@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProfileService {
   private apiUrl = 'https://restoran.kalasenja.my.id/api';
-  private baseUrl = 'http://localhost:8000';
+  private baseUrl = 'https://restoran.kalasenja.my.id';
 
   constructor(private http: HttpClient) { }
 

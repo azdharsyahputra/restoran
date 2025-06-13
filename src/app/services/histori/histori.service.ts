@@ -14,7 +14,7 @@ export class HistoriService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${environment.apiUrl}/histori/`, { headers });
+    return this.http.get(`${environment.apiUrl}/histori`, { headers });
   }
 
   getDetailReservasi(id: string): Observable<any> {
