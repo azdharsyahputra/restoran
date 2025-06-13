@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { HistoryDetailPageRoutingModule } from './history-detail-routing.module';
 
 import { HistoryDetailPage } from './history-detail.page';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoryDetailPageRoutingModule
+    HistoryDetailPageRoutingModule,
+    QRCodeComponent, // ⬅️ Tambah ini
   ],
   declarations: [HistoryDetailPage]
 })

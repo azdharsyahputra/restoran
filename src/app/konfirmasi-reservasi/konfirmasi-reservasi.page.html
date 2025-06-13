@@ -5,7 +5,7 @@
         <input type="search" [(ngModel)]="searchQuery" placeholder="Search..." class="search-input" />
         <ion-icon name="search" class="search-icon"></ion-icon>
       </div>
-      <ion-icon name="scan" class="scan-icon"></ion-icon>
+      <ion-icon name="scan" class="scan-icon" (click)="startScan()"></ion-icon>
     </div>
 
     <!-- Looping data reservasi -->
