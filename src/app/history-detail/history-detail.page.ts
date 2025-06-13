@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HistoriService } from 'src/app/services/histori/histori.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-
 // Tambahkan import berikut
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
@@ -16,6 +15,7 @@ import localeId from '@angular/common/locales/id';
 export class HistoryDetailPage implements OnInit {
   reservasiId!: number;
   detailReservasi: any = null;
+  qrData = '1345677';
 
   constructor(
     private historiService: HistoriService,
