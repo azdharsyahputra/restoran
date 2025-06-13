@@ -15,45 +15,46 @@ import localeId from '@angular/common/locales/id';
 export class HistoryDetailPage implements OnInit {
   reservasiId!: number;
   detailReservasi: any = null;
-  qrData = '1345677';
+  qrData: string = ''; // Dideklarasikan tanpa 'this'
 
   constructor(
     private historiService: HistoriService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    // Register locale data Indonesia supaya pipe currency id bisa dipakai tanpa error
     registerLocaleData(localeId);
   }
 
   ngOnInit() {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (!idParam) {
-      console.error('Parameter ID reservasi tidak ditemukan!');
-      return;
-    }
-
-    this.reservasiId = Number(idParam);
-    if (this.reservasiId <= 0) {
-      console.error('ID reservasi tidak valid:', this.reservasiId);
-      return;
-    }
-
-    this.historiService.getDetailReservasi(this.reservasiId.toString())
-      .subscribe({
-        next: (res: any) => {
-          if (res.status) {
-            this.detailReservasi = res.data;
-            console.log('Detail reservasi:', this.detailReservasi);
-          } else {
-            console.error('Gagal mendapatkan data reservasi:', res.message);
-          }
-        },
-        error: (err: any) => {
-          console.error('Error mengambil detail reservasi:', err);
-        }
-      });
+  const idParam = this.route.snapshot.paramMap.get('id');
+  if (!idParam) {
+    console.error('Parameter ID reservasi tidak ditemukan!');
+    return;
   }
+
+  this.reservasiId = Number(idParam);
+  if (this.reservasiId <= 0) {
+    console.error('ID reservasi tidak valid:', this.reservasiId);
+    return;
+  }
+
+  this.historiService.getDetailReservasi(this.reservasiId.toString())
+    .subscribe({
+      next: (res: any) => {
+        if (res.status && res.data?.kode_reservasi) {
+          this.detailReservasi = res.data;
+
+          // ✅ Set QR Data dengan kode reservasi (bukan ID)
+          this.qrData = this.detailReservasi.kode_reservasi;
+        } else {
+          console.error('Gagal mendapatkan data reservasi:', res.message);
+        }
+      },
+      error: (err: any) => {
+        console.error('Error mengambil detail reservasi:', err);
+      }
+    });
+}
 
   getJamDariSesi(sesi: string): string {
     const mapJam: { [key: string]: string } = {
