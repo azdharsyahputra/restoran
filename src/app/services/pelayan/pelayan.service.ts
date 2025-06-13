@@ -63,5 +63,10 @@ export class PelayanService {
     return this.http.get<any>(url, { headers: this.getHeaders(token) });
   }
 
-
+  verifikasiKehadiran(kode: string, token: string): Observable<any> {
+    const url = `${this.baseUrl}/verifikasi-kehadiran`;
+    return this.http.post(url, { kode_reservasi: kode }, {
+    headers: this.getHeaders(token)
+    });
+  }
 }

@@ -82,11 +82,11 @@
       </ion-card-content>
     </ion-card>
 
-    <div class="ion-text-center" style="margin-bottom: 20px;">
+    <div class="ion-text-center" style="margin-bottom: 20px;" *ngIf="qrData">
       <qrcode [qrdata]="qrData" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
       <p>QR Data: {{ qrData }}</p>
     </div>
-    
+
     <ng-template #loading>
       <p>Loading...</p>
     </ng-template>

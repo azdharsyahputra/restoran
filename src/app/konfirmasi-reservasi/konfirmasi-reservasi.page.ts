@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PelayanService } from '../services/pelayan/pelayan.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import {
   CapacitorBarcodeScanner,
   CapacitorBarcodeScannerTypeHint
 } from '@capacitor/barcode-scanner';
-// Jika ingin cek izin manual, uncomment dan install plugin Camera:
-// import { Camera } from '@capacitor/camera';
-
+import { HttpClient } from '@angular/common/http'; // ✅ Tambahkan ini
 
 @Component({
   selector: 'app-konfirmasi-reservasi',
@@ -23,12 +20,14 @@ export class KonfirmasiReservasiPage implements OnInit {
   loading = false;
   token: string = '';
   searchQuery: string = '';
+  scannedResult: string | null = null;
 
   constructor(
     private pelayanService: PelayanService,
     private alertCtrl: AlertController,
-    private router: Router
-  ) { }
+    private router: Router,
+    private http: HttpClient // ✅ Tambahkan ke constructor
+  ) {}
 
   ngOnInit() {
     this.token = localStorage.getItem('token') || '';
@@ -52,7 +51,6 @@ export class KonfirmasiReservasiPage implements OnInit {
     }
   }
 
-  // Getter untuk hasil filter
   get filteredReservasiList() {
     const query = this.searchQuery.toLowerCase();
     return this.reservasiList.filter(item =>
@@ -64,27 +62,12 @@ export class KonfirmasiReservasiPage implements OnInit {
   bukaDetail(reservasiId: number) {
     this.router.navigate(['/konfirmasi-reservasi-detail', reservasiId]);
   }
-    scannedResult: string | null = null;
 
-  // Opsional: cek izin kamera jika plugin Camera diinstal
   private async ensureCameraPermission(): Promise<boolean> {
-    // Jika tidak mengimpor Camera, kembalikan true agar OS prompt otomatis muncul
-    try {
-      // Uncomment jika Camera plugin terpasang:
-      // const status = await Camera.checkPermissions();
-      // if (status.camera !== 'granted') {
-      //   const res = await Camera.requestPermissions({ permissions: ['camera'] });
-      //   return res.camera === 'granted';
-      // }
-      return true;
-    } catch (e) {
-      console.warn('Error checking camera permission', e);
-      return true;
-    }
+    return true; // biarkan true agar tetap lanjut
   }
 
   async startScan() {
-    // Jika ingin cek izin manual, tetap panggil ensureCameraPermission
     const ok = await this.ensureCameraPermission();
     if (!ok) {
       alert('Izin kamera diperlukan untuk scan');
@@ -92,24 +75,56 @@ export class KonfirmasiReservasiPage implements OnInit {
     }
 
     try {
-      const result = await CapacitorBarcodeScanner.scanBarcode({
+      const result: any = await CapacitorBarcodeScanner.scanBarcode({
         hint: CapacitorBarcodeScannerTypeHint.ALL
       });
-      // Hasil ada di property ScanResult
-      if (result && result.ScanResult) {
-        this.scannedResult = result.ScanResult;
+
+      console.log('Hasil scan:', result); // debug dulu untuk pastikan struktur
+
+      const scannedKode = result.value; // ✅ gunakan .value sesuai struktur yang benar
+      if (scannedKode) {
+        this.scannedResult = scannedKode;
+        this.kirimVerifikasi(scannedKode);
       } else {
         this.scannedResult = null;
+        alert('QR tidak terbaca atau kosong.');
       }
+
     } catch (e) {
       console.error('Error saat scanBarcode:', e);
       this.scannedResult = null;
     }
   }
 
-  // Hapus atau jangan panggil stopScan() karena tidak ada di API resmi
-  // Jika ingin memberi instruksi batal, tangani lewat UI/back button
-  cancelScanInstruction() {
-    // Misalnya tampilkan toast atau teks “Tekan Back untuk batal”
-  }
+  // ✅ Method untuk kirim kode QR (kode_reservasi) ke backend
+  kirimVerifikasi(kode: string) {
+  this.pelayanService.verifikasiKehadiran(kode, this.token).subscribe({
+    next: async (res: any) => {
+      if (res.status) {
+        const alert = await this.alertCtrl.create({
+          header: 'Sukses',
+          message: 'Reservasi berhasil diverifikasi!',
+          buttons: ['OK']
+        });
+        await alert.present();
+        this.loadReservasi(); // refresh list
+      } else {
+        const alert = await this.alertCtrl.create({
+          header: 'Gagal',
+          message: res.message || 'Verifikasi gagal.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    },
+    error: async () => {
+      const alert = await this.alertCtrl.create({
+        header: 'Error',
+        message: 'Terjadi kesalahan saat menghubungi server.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  });
+}
 }
