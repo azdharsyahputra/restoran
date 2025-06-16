@@ -3,9 +3,11 @@ ion-content {
 }
 
 .container {
-    background-color: white;
-    height: 100%;
-    padding: 16px;
+  background-color: white;
+  min-height: 100%;
+  padding: 16px;
+  padding-bottom: 90px; /* agar tidak tertutup ion-footer */
+  padding-top: 16px; /* bisa diatur lebih kalau butuh */
 }
 
 .header {

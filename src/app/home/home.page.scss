@@ -3,9 +3,11 @@ ion-content {
 }
 
 .container {
-    background-color: white;
-    height: 100%;
-    padding: 16px;
+  background-color: white;
+  min-height: 100%;
+  padding: 16px;
+  padding-bottom: 90px; /* agar tidak tertutup ion-footer */
+  padding-top: 16px; /* bisa diatur lebih kalau butuh */
 }
 
 .header {
@@ -63,6 +65,7 @@ ion-content {
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
+    margin-left: 5px;
 }
 
 .icon {
@@ -112,6 +115,7 @@ ion-content {
   justify-content: space-between;
   margin-top: 24px;
   padding: 0 8px;
+  align-items: center;
 }
 
 .category-button {

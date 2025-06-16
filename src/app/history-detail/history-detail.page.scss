@@ -4,8 +4,10 @@ ion-content {
 
 .container {
   background-color: white;
-  height: 100%;
+  min-height: 100%;
   padding: 16px;
+  padding-bottom: 90px; /* agar tidak tertutup ion-footer */
+  padding-top: 16px; /* bisa diatur lebih kalau butuh */
 }
 
 .bottom-navbar {
@@ -96,4 +98,11 @@ ion-content {
 
 .catatan-list li::before {
   content: "- ";
+}
+.menu-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  padding: 10px 0;
+  color: #444;
 }
