@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // === API ===
   register(data: any): Observable<any> {
@@ -54,6 +54,12 @@ export class AuthService {
       pengguna_id: localStorage.getItem('pengguna_id'),
     };
   }
+
+
+  gantiPassword(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/update-password`, data);
+  }
+
 
   logout() {
     localStorage.clear();

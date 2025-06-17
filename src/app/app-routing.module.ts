@@ -48,7 +48,7 @@ const routes: Routes = [
     path: 'tanggal',
     loadChildren: () => import('./reservasi/tanggal/tanggal.module').then(m => m.TanggalPageModule),
     canActivate: [AuthGuard],
-    // data: { roles: ['Pelanggan'] }
+    data: { roles: ['Pelanggan'] }
   },
   {
     path: 'jam',
@@ -109,7 +109,11 @@ const routes: Routes = [
     path: 'sukses/:id',
     loadChildren: () => import('./reservasi/sukses/sukses.module').then( m => m.SuksesPageModule),
     canActivate: [AuthGuard]
+  },  {
+    path: 'ganti-password',
+    loadChildren: () => import('./auth/ganti-password/ganti-password.module').then( m => m.GantiPasswordPageModule)
   },
+
 
 ];
 

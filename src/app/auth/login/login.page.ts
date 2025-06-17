@@ -11,9 +11,11 @@ import { Location } from '@angular/common';
   standalone: false,
 })
 export class LoginPage implements OnInit {
-
+  
   email: string = '';
   password: string = '';
+  showPassword = false;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -91,6 +93,10 @@ export class LoginPage implements OnInit {
         await alert.present();
       },
     });
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 
   redirectByRole(role: string) {
