@@ -6,7 +6,7 @@ import {
   CapacitorBarcodeScanner,
   CapacitorBarcodeScannerTypeHint
 } from '@capacitor/barcode-scanner';
-import { HttpClient } from '@angular/common/http'; // ✅ Tambahkan ini
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-konfirmasi-reservasi',
@@ -26,8 +26,8 @@ export class KonfirmasiReservasiPage implements OnInit {
     private pelayanService: PelayanService,
     private alertCtrl: AlertController,
     private router: Router,
-    private http: HttpClient // ✅ Tambahkan ke constructor
-  ) {}
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
     this.token = localStorage.getItem('token') || '';
@@ -64,7 +64,7 @@ export class KonfirmasiReservasiPage implements OnInit {
   }
 
   private async ensureCameraPermission(): Promise<boolean> {
-    return true; // biarkan true agar tetap lanjut
+    return true; // izinkan langsung
   }
 
   async startScan() {
@@ -75,56 +75,52 @@ export class KonfirmasiReservasiPage implements OnInit {
     }
 
     try {
-      const result: any = await CapacitorBarcodeScanner.scanBarcode({
+      const result = await CapacitorBarcodeScanner.scanBarcode({
         hint: CapacitorBarcodeScannerTypeHint.ALL
       });
 
-      console.log('Hasil scan:', result); // debug dulu untuk pastikan struktur
+      if (result && result.ScanResult) {
+        this.scannedResult = result.ScanResult;
+        // ✅ Tampilkan hasil scan
+        alert(`Hasil QR: ${this.scannedResult}`);
 
-      const scannedKode = result.value; // ✅ gunakan .value sesuai struktur yang benar
-      if (scannedKode) {
-        this.scannedResult = scannedKode;
-        this.kirimVerifikasi(scannedKode);
+        // ✅ Kirim ke backend untuk validasi dan ubah status
+        this.kirimVerifikasi(this.scannedResult);
+
       } else {
         this.scannedResult = null;
-        alert('QR tidak terbaca atau kosong.');
+        alert('QR kosong atau tidak terbaca.');
       }
 
     } catch (e) {
       console.error('Error saat scanBarcode:', e);
       this.scannedResult = null;
+      alert('Terjadi kesalahan saat memindai QR.');
     }
   }
 
-  // ✅ Method untuk kirim kode QR (kode_reservasi) ke backend
   kirimVerifikasi(kode: string) {
-  this.pelayanService.verifikasiKehadiran(kode, this.token).subscribe({
-    next: async (res: any) => {
-      if (res.status) {
+    this.pelayanService.verifikasiKehadiran(kode, this.token).subscribe({
+      next: async (res: any) => {
         const alert = await this.alertCtrl.create({
-          header: 'Sukses',
-          message: 'Reservasi berhasil diverifikasi!',
+          header: res.status ? 'Sukses' : 'Gagal',
+          message: res.message || (res.status ? 'Reservasi diterima.' : 'Kode tidak ditemukan.'),
           buttons: ['OK']
         });
         await alert.present();
-        this.loadReservasi(); // refresh list
-      } else {
+
+        if (res.status) {
+          this.loadReservasi(); // refresh list jika berhasil
+        }
+      },
+      error: async () => {
         const alert = await this.alertCtrl.create({
-          header: 'Gagal',
-          message: res.message || 'Verifikasi gagal.',
+          header: 'Error',
+          message: 'Gagal menghubungi server.',
           buttons: ['OK']
         });
         await alert.present();
       }
-    },
-    error: async () => {
-      const alert = await this.alertCtrl.create({
-        header: 'Error',
-        message: 'Terjadi kesalahan saat menghubungi server.',
-        buttons: ['OK']
-      });
-      await alert.present();
-    }
-  });
-}
+    });
+  }
 }
