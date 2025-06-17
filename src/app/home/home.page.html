@@ -16,14 +16,19 @@
     </div>
 
     <div class="content">
-      <input type="text" placeholder="Search" class="search">
+      <!-- <input type="text" placeholder="Search" class="search" > -->
+      <!-- <ion-input [(ngModel)]="searchTerm" (ionInput)="applySearch()" placeholder="Search" class="search"></ion-input> -->
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="applySearch()" placeholder="Search menu"></ion-searchbar>
+
     </div>
+
     <div class="jumbotron">
       <h2>Today's Special</h2>
       <p>Get 20% off for all pasta menus!</p>
       <ion-button color="primary" size="small">Order Now</ion-button>
     </div>
-    <div class="category" style="margin-top: 50px;">
+
+    <div class="category" *ngIf="!searchTerm" style="margin-top: 50px;">
       <div class="category-button" (click)="selectCategory('semua')">
         <img src="assets/icon/allmenu.png" alt="logo" class="logo" />
         <h3>All</h3>
@@ -43,28 +48,30 @@
     </div>
 
 
-    <h2 style="color: black; margin-top: 50px;">MENU TERLARIS</h2>
-    <div class="popular" style="margin-top: 20px;">
+    <!-- Tampilkan MENU TERLARIS hanya jika tidak sedang search -->
+    <h2 *ngIf="!searchTerm" style="color: black; margin-top: 50px;">MENU TERLARIS</h2>
+    <div class="popular" *ngIf="!searchTerm" style="margin-top: 20px;">
       <div class="popular-item" *ngFor="let item of terlarisList">
         <img [src]="imageBaseUrl + item.gambar" alt="{{ item.nama }}" class="logo">
         <h3>{{ item.nama }}</h3>
         <div class="price">
           <h3>Rp. {{ item.harga | number:'1.0-0' }}</h3>
-          <ion-icon name="add-circle-outline" class="add-icon"></ion-icon>
+          <ion-icon [routerLink]="['/tanggal']" name="add-circle-outline" class="add-icon"></ion-icon>
         </div>
       </div>
     </div>
 
-    <!-- menu tampil sesuai klik -->
-    <h2 *ngIf="selectedTitle" style="color: black; margin-top: 50px;">{{ selectedTitle }}</h2>
+    <!-- Tampilkan title kategori hanya jika tidak sedang search -->
+    <h2 *ngIf="!searchTerm && selectedTitle" style="color: black; margin-top: 50px;">{{ selectedTitle }}</h2>
 
+    <!-- Tampilkan menu (bisa hasil search atau hasil kategori) -->
     <div class="popular" style="margin-top: 20px;">
       <div class="popular-item" *ngFor="let item of selectedItems">
         <img [src]="imageBaseUrl + item.gambar" alt="{{ item.nama }}" class="logo">
         <h3>{{ item.nama }}</h3>
         <div class="price">
           <h3>Rp. {{ item.harga | number:'1.0-0' }}</h3>
-          <ion-icon name="add-circle-outline" class="add-icon"></ion-icon>
+          <ion-icon [routerLink]="['/tanggal']" name="add-circle-outline" class="add-icon"></ion-icon>
         </div>
       </div>
     </div>

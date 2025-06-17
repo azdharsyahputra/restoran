@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../services/menu/menu.service';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/services/profile/profile.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -18,7 +19,9 @@ export class HomePage implements OnInit {
   imageBaseUrl = environment.imageBaseUrl;
   terlarisList: any[] = [];
 
+  searchTerm: string = '';
   userProfile: any = null;
+
   constructor(private menuService: MenuService, private ProfileService: ProfileService) { }
 
   async ngOnInit() {
@@ -35,14 +38,8 @@ export class HomePage implements OnInit {
       this.terlarisList = res;
     });
 
-    // Load user profile
     this.userProfile = await this.ProfileService.loadUserProfile();
   }
-
-  // onImgError(event: any) {
-  //   event.target.src = 'assets/icon/sjar.jpg';
-  // }
-
 
   selectCategory(kategori: string) {
     switch (kategori) {
@@ -66,6 +63,17 @@ export class HomePage implements OnInit {
         this.selectedItems = [];
         this.selectedTitle = '';
     }
+    this.applySearch();  // Apply search filter setiap ganti kategori
   }
 
+  applySearch() {
+    const term = this.searchTerm.toLowerCase();
+    if (term) {
+      this.selectedItems = this.menuList.filter((item: any) =>
+        item.nama.toLowerCase().includes(term)
+      );
+    } else {
+      this.selectCategory(this.selectedTitle.toLowerCase());
+    }
+  }
 }

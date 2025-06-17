@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl = 'https://restoran.kalasenja.my.id/api';
+  // private apiUrl = 'https://restoran.kalasenja.my.id/api';
+  // private baseUrl = 'https://restoran.kalasenja.my.id';
+  private apiUrl = 'http://localhost:8000/api';
   private baseUrl = 'http://localhost:8000';
 
   constructor(private http: HttpClient) { }

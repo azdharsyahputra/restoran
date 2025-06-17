@@ -131,4 +131,10 @@ export class ReservasiService {
 
     return this.http.get(`${this.apiUrl}/reservasi/${id}/selesai`, { headers });
   }
+
+  getSesiTersedia(tanggal: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/reservasi/sesi-tersedia?tanggal=${tanggal}`);
+  }
+
+
 }

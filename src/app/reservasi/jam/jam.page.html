@@ -104,23 +104,44 @@
       </div>
     </ng-container>
 
+    <ion-card *ngIf="reservasiPenuh" color="danger">
+      <ion-card-content class="ion-text-center">
+        <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+        <p>Reservasi untuk hari ini sudah penuh. Silakan pilih tanggal lain.</p>
+        <!-- <p>Yahaha Mampus Lu Kontol Kaga Kebagian Sesi Makanya Fastheng Dong Jembot Awokawokawokawo 😜😜😜.</p> -->
+      </ion-card-content>
+    </ion-card>
+
+
 
     <!-- total orang -->
-    <div class="total-orang" style="margin-top: 20px;">
-      <p style="color: black; margin-left: 10px;">Total Orang</p>
-      <div class="form-orang" style="margin-left: 10px; display: flex; align-items: center;">
-        <div style="color: black; margin-right: 20px;">Kapasitas 20 Orang</div>
-        <ion-button size="small" shape="round" color="dark" (click)="kurangJumlah()">-</ion-button>
-        <ion-input type="number" [value]="jumlahTamu" readonly style="width: 50px; text-align: center; color: black;">
-        </ion-input>
-        <ion-button size="small" shape="round" color="dark" (click)="tambahJumlah()">+</ion-button>
+    <!-- Total Orang + Tombol Lanjut hilang jika penuh -->
+    <ng-container *ngIf="!reservasiPenuh">
+      <div class="total-orang" style="margin-top: 20px;">
+        <p style="color: black; margin-left: 10px;">Total Orang</p>
+        <div class="form-orang" style="margin-left: 10px; display: flex; align-items: center;">
+          <div style="color: black; margin-right: 20px;">Kapasitas 20 Orang</div>
+          <ion-button size="small" shape="round" color="dark" (click)="kurangJumlah()">-</ion-button>
+          <ion-input type="number" [value]="jumlahTamu" readonly style="width: 50px; text-align: center; color: black;">
+          </ion-input>
+          <ion-button size="small" shape="round" color="dark" (click)="tambahJumlah()">+</ion-button>
+        </div>
       </div>
-    </div>
 
-    <!-- tombol lanjut -->
-    <div style="margin: 20px 10px;">
-      <ion-button expand="block" (click)="onOk()">Lanjut</ion-button>
-    </div>
+      <!-- tombol lanjut -->
+      <div style="margin: 20px 10px;">
+        <ion-button expand="block" (click)="onOk()">Lanjut</ion-button>
+      </div>
+    </ng-container>
+
+    <!-- Pesan jika semua sesi penuh -->
+    <!-- <ion-card *ngIf="reservasiPenuh" color="danger">
+      <ion-card-content style="text-align: center;">
+        <ion-icon name="close-circle-outline" size="large"></ion-icon>
+        <p>Maaf, reservasi untuk hari ini sudah penuh.</p>
+      </ion-card-content>
+    </ion-card> -->
+
 
 
   </div>

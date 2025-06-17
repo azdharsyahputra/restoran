@@ -1,9 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../services/menu/menu.service';
 import { ReservasiService, PesananItem } from '../../services/reservasi/reservasi.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pilih-menu',
@@ -13,15 +13,16 @@ import { Router } from '@angular/router';
 })
 export class PilihMenuPage implements OnInit {
 
-  allMenu: any[] = [];       // Semua data menu dari API
-  itemList: any[] = [];      // Data menu yang ditampilkan, bisa difilter
+  allMenu: any[] = [];
+  itemList: any[] = [];
   selectedCategory: string = 'All';
   imageBaseUrl = environment.imageBaseUrl;
 
   constructor(
     private menuService: MenuService,
     private reservasiService: ReservasiService,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -36,18 +37,17 @@ export class PilihMenuPage implements OnInit {
           jumlah: 0,
         }));
 
-        // Sinkronisasi jumlah pesanan dari ReservasiService jika ada
         const pesananSaved = this.reservasiService.getReservasiData().pesanan || [];
         this.allMenu.forEach(item => {
           const pesananItem = pesananSaved.find(p => p.menu_id === item.id);
           item.jumlah = pesananItem ? pesananItem.jumlah : 0;
         });
 
-        // Awalnya tampil semua menu
         this.filterCategory('All');
       },
       error: (err) => {
         console.error('Gagal load menu:', err);
+        this.presentToast('Gagal memuat menu. Silakan coba lagi.');
       }
     });
   }
@@ -68,7 +68,6 @@ export class PilihMenuPage implements OnInit {
       this.itemList = [];
     }
   }
-
 
   onCategoryClick(category: string) {
     this.filterCategory(category);
@@ -92,7 +91,7 @@ export class PilihMenuPage implements OnInit {
       .map(item => ({
         menu_id: item.id,
         jumlah: item.jumlah,
-        catatan: item.catatan || '',    // ambil catatan dari item
+        catatan: item.catatan || '',
         nama: item.nama,
         harga: item.harga
       }));
@@ -101,7 +100,6 @@ export class PilihMenuPage implements OnInit {
     console.log('Pesanan tersimpan sementara:', pesanan);
   }
 
-  // Cek ada pesanan atau tidak
   adaPesanan(): boolean {
     const ada = this.allMenu.some(item => item.jumlah > 0);
     console.log('Cek ada pesanan:', ada);
@@ -115,53 +113,48 @@ export class PilihMenuPage implements OnInit {
     console.log('Pesanan dibatalkan, data pesanan saat ini:', this.reservasiService.getReservasiData().pesanan);
   }
 
-  // konfirmasiPesanan() {
-  //   console.log('Pesanan dikonfirmasi, data pesanan:', this.reservasiService.getReservasiData().pesanan);
-  //   this.router.navigate(['/payment']);
-  // }
   konfirmasiPesanan() {
     const reservasiData = this.reservasiService.getReservasiData();
 
-    // Validasi data reservasi
     if (!reservasiData.tanggal || !reservasiData.sesi || !reservasiData.jumlah_tamu || !reservasiData.pesanan?.length) {
-      alert('Data reservasi belum lengkap!');
+      this.presentToast('Data reservasi belum lengkap!');
       return;
     }
 
-    // Ambil pengguna_id dan token dari localStorage
     const pengguna_id = localStorage.getItem('pengguna_id');
     const token = localStorage.getItem('token');
 
     if (!pengguna_id || !token) {
-      alert('Pengguna belum login.');
+      this.presentToast('Pengguna belum login.');
       return;
     }
 
     this.reservasiService.kirimReservasi(pengguna_id, token).subscribe({
       next: (res) => {
         console.log('Reservasi berhasil dikirim:', res);
-
-        // Simpan reservasi_id dari backend
         const reservasi_id = res.data?.id || res.data?.reservasi_id;
         if (!reservasi_id) {
-          alert('Reservasi berhasil tapi ID tidak ditemukan.');
+          this.presentToast('Reservasi berhasil tapi ID tidak ditemukan.');
           return;
         }
-
         this.reservasiService.setReservasiID(reservasi_id);
-
-        // Navigasi ke halaman payment untuk lanjut bayar
-        // this.router.navigate(['/payment']);
         this.router.navigate(['/payment', reservasi_id]);
       },
       error: (err) => {
         console.error('Gagal kirim reservasi:', err);
-        alert('Gagal mengirim reservasi. Silakan coba lagi.');
+        this.presentToast('Gagal mengirim reservasi. Silakan coba lagi.');
       }
     });
   }
 
-
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 4000,
+      position: 'bottom',
+      color: 'danger'
+    });
+    await toast.present();
+  }
 
 }
-
