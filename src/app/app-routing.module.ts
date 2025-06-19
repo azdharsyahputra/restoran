@@ -109,7 +109,8 @@ const routes: Routes = [
     path: 'sukses/:id',
     loadChildren: () => import('./reservasi/sukses/sukses.module').then( m => m.SuksesPageModule),
     canActivate: [AuthGuard]
-  },  {
+  },
+  {
     path: 'ganti-password',
     loadChildren: () => import('./auth/ganti-password/ganti-password.module').then( m => m.GantiPasswordPageModule)
   },

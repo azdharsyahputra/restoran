@@ -79,6 +79,49 @@
           <!-- <span>{{ detailReservasi.pembayaran?.metode || '-' }}</span> -->
           <span>{{ detailReservasi.status }}</span>
         </div>
+
+
+        <ion-card *ngIf="detailReservasi.pelayan">
+          <ion-card-header>
+            <ion-card-title>Rating Pelayan</ion-card-title>
+            <ion-card-subtitle>{{ detailReservasi.pelayan.nama }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="star-rating">
+              <ion-icon *ngFor="let star of [1,2,3,4,5]" [name]="star <= ratingPelayan ? 'star' : 'star-outline'"
+                (click)="setRating('pelayan', star)">
+              </ion-icon>
+            </div>
+            <ion-item>
+              <ion-label position="stacked">Ulasan</ion-label>
+              <ion-textarea [(ngModel)]="ulasanPelayan"></ion-textarea>
+            </ion-item>
+            <ion-button expand="block" (click)="submitRatingPegawai('pelayan')">Kirim Rating Pelayan</ion-button>
+          </ion-card-content>
+        </ion-card>
+
+
+        <ion-card *ngIf="detailReservasi.koki">
+          <ion-card-header>
+            <ion-card-title>Rating Koki</ion-card-title>
+            <ion-card-subtitle>{{ detailReservasi.koki.nama }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="star-rating">
+              <ion-icon *ngFor="let star of [1,2,3,4,5]" [name]="star <= ratingKoki ? 'star' : 'star-outline'"
+                (click)="setRating('koki', star)">
+              </ion-icon>
+            </div>
+            <ion-item>
+              <ion-label position="stacked">Ulasan</ion-label>
+              <ion-textarea [(ngModel)]="ulasanKoki"></ion-textarea>
+            </ion-item>
+            <ion-button expand="block" (click)="submitRatingPegawai('koki')">Kirim Rating Koki</ion-button>
+          </ion-card-content>
+        </ion-card>
+
+
+
       </ion-card-content>
     </ion-card>
 
