@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../services/menu/menu.service';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/services/profile/profile.service';
-
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -21,8 +21,7 @@ export class HomePage implements OnInit {
 
   searchTerm: string = '';
   userProfile: any = null;
-
-  constructor(private menuService: MenuService, private ProfileService: ProfileService) { }
+  constructor(private menuService: MenuService, private ProfileService: ProfileService,private alertController: AlertController) { }
 
   async ngOnInit() {
     this.menuService.getAllMenu().subscribe((res: any) => {
@@ -39,6 +38,7 @@ export class HomePage implements OnInit {
     });
 
     this.userProfile = await this.ProfileService.loadUserProfile();
+    this.cekStatusAntrian();
   }
 
   selectCategory(kategori: string) {
@@ -65,6 +65,17 @@ export class HomePage implements OnInit {
     }
     this.applySearch();  // Apply search filter setiap ganti kategori
   }
+async cekStatusAntrian() {
+  const sudahDipanggil = true;
+  if (sudahDipanggil) {
+    const alert = await this.alertController.create({
+      header: 'Saatnya Masuk!',
+      message: 'Silakan masuk ke ruangan dokter sekarang untuk pemeriksaan.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+}
 
   applySearch() {
     const term = this.searchTerm.toLowerCase();
