@@ -3,6 +3,9 @@ import { MenuService } from '../services/menu/menu.service';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 import { AlertController } from '@ionic/angular';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NotifService } from '../services/notif/notif.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -21,7 +24,17 @@ export class HomePage implements OnInit {
 
   searchTerm: string = '';
   userProfile: any = null;
-  constructor(private menuService: MenuService, private ProfileService: ProfileService,private alertController: AlertController) { }
+  lastStatus: string = '';
+  lastPesananUpdateTime: string = '';
+  reservasiId: number = 1;
+
+  constructor(
+    private menuService: MenuService,
+    private ProfileService: ProfileService,
+    private alertController: AlertController,
+    private notifService: NotifService,
+    private http: HttpClient
+  ) {}
 
   async ngOnInit() {
     this.menuService.getAllMenu().subscribe((res: any) => {
@@ -38,7 +51,14 @@ export class HomePage implements OnInit {
     });
 
     this.userProfile = await this.ProfileService.loadUserProfile();
-    this.cekStatusAntrian();
+    if (this.userProfile && this.userProfile.id) {
+      localStorage.setItem('pengguna_id', this.userProfile.id.toString());
+    }
+
+    // Mulai pengecekan status pesanan tiap 5 detik
+    setInterval(() => {
+      this.cekStatusPesananTerbaru();
+    }, 5000);
   }
 
   selectCategory(kategori: string) {
@@ -63,19 +83,54 @@ export class HomePage implements OnInit {
         this.selectedItems = [];
         this.selectedTitle = '';
     }
-    this.applySearch();  // Apply search filter setiap ganti kategori
+    this.applySearch();
   }
-async cekStatusAntrian() {
-  const sudahDipanggil = true;
-  if (sudahDipanggil) {
-    const alert = await this.alertController.create({
-      header: 'Saatnya Masuk!',
-      message: 'Silakan masuk ke ruangan dokter sekarang untuk pemeriksaan.',
-      buttons: ['OK']
+
+  async cekStatusPesananTerbaru() {
+    const token = localStorage.getItem('token');
+    const penggunaId = localStorage.getItem('pengguna_id');
+    if (!token || !penggunaId) return;
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
     });
-    await alert.present();
+
+    this.http.get<any>(
+      `${environment.apiUrl}/pesanan/status-terbaru?pengguna_id=${penggunaId}`,
+      { headers }
+    ).subscribe(async (res) => {
+      if (res.status && res.data.length > 0) {
+        const pesananTerbaru = res.data[0];
+        const newUpdatedAt = pesananTerbaru.updated_at;
+        const statusBaru = pesananTerbaru.status;
+        const menuNama = pesananTerbaru.menu?.nama || 'Pesanan';
+
+        // Hanya tampilkan notifikasi jika updated_at berubah
+        if (newUpdatedAt !== this.lastPesananUpdateTime) {
+          this.lastPesananUpdateTime = newUpdatedAt;
+
+          // Hanya jika status termasuk dalam list ini
+          const statusYangPerluNotif = ['menunggu', 'diproses', 'disajikan'];
+          if (!statusYangPerluNotif.includes(statusBaru)) return;
+
+          let header = 'Status Pesanan';
+          let message = `${menuNama} sekarang berstatus: ${statusBaru}`;
+
+          if (statusBaru === 'disajikan') {
+            header = 'Pesanan Disajikan!';
+            message = `${menuNama} telah disajikan. Selamat menikmati!`;
+          }
+
+          const alert = await this.alertController.create({
+            header,
+            message,
+            buttons: ['OK']
+          });
+          await alert.present();
+        }
+      }
+    });
   }
-}
 
   applySearch() {
     const term = this.searchTerm.toLowerCase();
