@@ -33,4 +33,12 @@ export class HistoriService {
   //   return this.http.get(`${environment.apiUrl}/histori/${id}`, { headers });
   // }
 
+  submitRating(data: any) {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`${environment.apiUrl}/rating-pegawai`, data, { headers });
+  }
+
 }

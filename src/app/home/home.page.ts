@@ -19,6 +19,7 @@ export class HomePage implements OnInit {
   imageBaseUrl = environment.imageBaseUrl;
   terlarisList: any[] = [];
 
+  searchTerm: string = '';
   userProfile: any = null;
   constructor(private menuService: MenuService, private ProfileService: ProfileService,private alertController: AlertController) { }
 
@@ -36,15 +37,9 @@ export class HomePage implements OnInit {
       this.terlarisList = res;
     });
 
-    // Load user profile
     this.userProfile = await this.ProfileService.loadUserProfile();
     this.cekStatusAntrian();
   }
-
-  // onImgError(event: any) {
-  //   event.target.src = 'assets/icon/sjar.jpg';
-  // }
-
 
   selectCategory(kategori: string) {
     switch (kategori) {
@@ -68,6 +63,7 @@ export class HomePage implements OnInit {
         this.selectedItems = [];
         this.selectedTitle = '';
     }
+    this.applySearch();  // Apply search filter setiap ganti kategori
   }
 async cekStatusAntrian() {
   const sudahDipanggil = true;
@@ -80,4 +76,15 @@ async cekStatusAntrian() {
     await alert.present();
   }
 }
+
+  applySearch() {
+    const term = this.searchTerm.toLowerCase();
+    if (term) {
+      this.selectedItems = this.menuList.filter((item: any) =>
+        item.nama.toLowerCase().includes(term)
+      );
+    } else {
+      this.selectCategory(this.selectedTitle.toLowerCase());
+    }
+  }
 }
