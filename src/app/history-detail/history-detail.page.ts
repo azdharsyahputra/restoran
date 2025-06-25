@@ -21,7 +21,7 @@ export class HistoryDetailPage implements OnInit {
   ratingPelayan: number = 5;
   ratingKoki: number = 5;
   ulasanPelayan: string = '';
-  ulasanKoki: string = '';
+  ulasanKoki: string = ''; 
 
 
   constructor(
