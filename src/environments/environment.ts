@@ -8,7 +8,7 @@ export const environment = {
   // imageBaseUrl: 'https://restoran.kalasenja.my.id/storage/gambar_menu/',
   // imageBaseUrlProfile: 'https://restoran.kalasenja.my.id/storage/profile/'
   apiUrl: 'http://localhost:8000/api',
-  imageBaseUrl: 'http://localhost:8000/storage/gambar_menu/',
+  imageBaseUrl: 'http://localhost:8000/img/gambar_menu/',
   imageBaseUrlProfile: 'http://localhost:8000/storage/profile/'
   
 };
