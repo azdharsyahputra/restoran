@@ -35,9 +35,7 @@ export class ProfilePage implements OnInit {
 
       this.user = {
         ...res.data,
-        foto: res.data.foto
-          ? `${environment.imageBaseUrlProfile}${res.data.foto.split('/').pop()}`
-          : 'assets/icon/ajar.jpg'
+        foto: res.data.foto || 'assets/icon/ajar.jpg'
       };
 
       this.profileService.saveUser(this.user);

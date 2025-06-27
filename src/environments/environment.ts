@@ -9,7 +9,9 @@ export const environment = {
   // imageBaseUrlProfile: 'https://restoran.kalasenja.my.id/storage/profile/'
   apiUrl: 'http://localhost:8000/api',
   imageBaseUrl: 'http://localhost:8000/img/gambar_menu/',
-  imageBaseUrlProfile: 'http://localhost:8000/storage/profile/'
+
+  imageBaseUrlProfile: 'http://localhost:8000/img/foto_profile/'
+
   
 };
 
