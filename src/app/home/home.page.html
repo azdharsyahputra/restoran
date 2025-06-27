@@ -22,10 +22,27 @@
 
     </div>
 
-    <div class="jumbotron">
+    <!-- <div class="jumbotron">
       <h2>Today's Special</h2>
       <p>Get 20% off for all pasta menus!</p>
       <ion-button color="primary" size="small">Order Now</ion-button>
+    </div> -->
+
+    <div class="jumotron" style="position: relative; border-radius: 10px; overflow: hidden;">
+      <img src="assets/img/1.png" alt="Today's Special" style="width: 100%; display: block;">
+      <div class="overlay-text" style="
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    ">
+        <!-- <h2>Today's Special</h2>
+        <p>Get 20% off for all pasta menus!</p>
+        <ion-button color="primary" size="small">Order Now</ion-button> -->
+      </div>
     </div>
 
     <div class="category" *ngIf="!searchTerm" style="margin-top: 50px;">

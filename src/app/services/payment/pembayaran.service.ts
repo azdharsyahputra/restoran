@@ -23,6 +23,20 @@ export class PembayaranService {
     }, { headers });
   }
 
+  // buat upload bukti manual
+
+  // Upload bukti pembayaran setelah reservasi
+  uploadBukti(token: string, data: { pembayaran_id: string; bukti: File }) {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    const formData = new FormData();
+
+    formData.append('pembayaran_id', data.pembayaran_id);
+    formData.append('bukti', data.bukti);
+
+    return this.http.post(`${this.baseUrl}/midtrans/upload-bukti`, formData, { headers });
+  }
+
+
   // Simpan pembayaran manual (Transfer / COD)
   simpanManual(token: string, data: { reservasi_id: string; metode: string; bukti: File }) {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });

@@ -6,8 +6,10 @@ ion-content {
   background-color: white;
   min-height: 100%;
   padding: 16px;
-  padding-bottom: 90px; /* agar tidak tertutup ion-footer */
-  padding-top: 16px; /* bisa diatur lebih kalau butuh */
+  padding-bottom: 90px;
+  /* agar tidak tertutup ion-footer */
+  padding-top: 16px;
+  /* bisa diatur lebih kalau butuh */
 }
 
 .bottom-navbar {
@@ -51,6 +53,20 @@ ion-content {
   margin-left: 85px;
 }
 
+.btn-upload {
+  background-color: #3880ff;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  margin-top: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-upload:hover {
+  background-color: #3171e0;
+}
+
 .icon {
   color: black;
   font-size: 20px;
@@ -90,6 +106,20 @@ ion-content {
   color: #333;
 }
 
+// upload bayaranan
+.detail-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+
 .catatan-list {
   margin: 0;
   padding-left: 0;
@@ -99,6 +129,7 @@ ion-content {
 .catatan-list li::before {
   content: "- ";
 }
+
 .menu-row {
   display: flex;
   justify-content: space-between;
