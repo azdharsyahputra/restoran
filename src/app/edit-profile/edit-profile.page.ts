@@ -28,11 +28,13 @@ export class EditProfilePage implements OnInit {
   async loadProfile() {
     try {
       const res: any = await this.profileService.getProfile();
+      console.log('RESPON DARI BACKEND:', res);
       const baseUrl = 'http://localhost:8000';
 
       this.user = {
         ...res.data,
-        foto: res.data.foto ? `${baseUrl}${res.data.foto}` : ''
+        foto: res.data.foto || ''
+
       };
     } catch (error) {
       console.error('Gagal ambil profil', error);
