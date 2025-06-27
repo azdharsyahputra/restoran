@@ -51,6 +51,7 @@ export class HomePage implements OnInit {
     });
 
     this.userProfile = await this.ProfileService.loadUserProfile();
+    console.log(this.userProfile);
     if (this.userProfile && this.userProfile.id) {
       localStorage.setItem('pengguna_id', this.userProfile.id.toString());
     }

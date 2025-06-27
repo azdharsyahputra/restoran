@@ -35,7 +35,7 @@ export class ProfileService {
       const res: any = await this.getProfile();
       return {
         ...res.data,
-        foto: res.data.foto ? `${this.baseUrl}${res.data.foto}` : ''
+        foto: res.data.foto || ''
       };
     } catch (error) {
       console.error('Gagal ambil profil:', error);
@@ -53,7 +53,7 @@ export class ProfileService {
     if (nama && email) {
       return {
         nama,
-        email,
+        email,  
         telepon: '',
         role: '',
         foto: ''
