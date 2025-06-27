@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HistoriService } from 'src/app/services/histori/histori.service';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-// Tambahkan import berikut
+import { PembayaranService } from 'src/app/services/payment/pembayaran.service'; // ✅ Tambahkan
+import { ActivatedRoute, Router } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 import { AlertController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-history-detail',
@@ -17,15 +15,16 @@ import { AlertController } from '@ionic/angular';
 export class HistoryDetailPage implements OnInit {
   reservasiId!: number;
   detailReservasi: any = null;
-  qrData: string = ''; // Dideklarasikan tanpa 'this'
+  qrData: string = '';
   ratingPelayan: number = 5;
   ratingKoki: number = 5;
   ulasanPelayan: string = '';
-  ulasanKoki: string = ''; 
-
+  ulasanKoki: string = '';
+  selectedFile: File | null = null;
 
   constructor(
     private historiService: HistoriService,
+    private pembayaranService: PembayaranService, // ✅ Tambahkan ini
     private route: ActivatedRoute,
     private router: Router,
     private alertController: AlertController
@@ -51,8 +50,6 @@ export class HistoryDetailPage implements OnInit {
         next: (res: any) => {
           if (res.status && res.data?.kode_reservasi) {
             this.detailReservasi = res.data;
-
-            // ✅ Set QR Data dengan kode reservasi (bukan ID)
             this.qrData = this.detailReservasi.kode_reservasi;
           } else {
             console.error('Gagal mendapatkan data reservasi:', res.message);
@@ -97,7 +94,6 @@ export class HistoryDetailPage implements OnInit {
     await alert.present();
   }
 
-
   submitRatingPegawai(tipe: 'pelayan' | 'koki') {
     let pegawaiId: number | undefined;
 
@@ -136,7 +132,6 @@ export class HistoryDetailPage implements OnInit {
     });
   }
 
-  // set rating bintang
   setRating(tipe: 'pelayan' | 'koki', value: number) {
     if (tipe === 'pelayan') {
       this.ratingPelayan = value;
@@ -145,5 +140,41 @@ export class HistoryDetailPage implements OnInit {
     }
   }
 
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
 
+  uploadBukti() {
+    if (!this.selectedFile) {
+      this.showAlert('Gagal', 'Silakan pilih file terlebih dahulu.');
+      return;
+    }
+
+    const token = localStorage.getItem('token') || '';
+    const data = {
+      pembayaran_id: this.detailReservasi?.pembayaran?.id,
+      bukti: this.selectedFile
+    };
+
+    if (!data.pembayaran_id) {
+      this.showAlert('Gagal', 'Pembayaran ID tidak ditemukan dari data reservasi.');
+      return;
+    }
+
+    this.pembayaranService.uploadBukti(token, data).subscribe({
+      next: (res: any) => {
+        if (res.status) {
+          this.showAlert('Sukses', 'Bukti pembayaran berhasil diunggah!');
+          this.selectedFile = null;
+          this.detailReservasi.pembayaran.status = 'dikonfirmasi';
+        } else {
+          this.showAlert('Gagal', res.message);
+        }
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.showAlert('Error', 'Terjadi kesalahan saat mengunggah bukti.');
+      }
+    });
+  }
 }

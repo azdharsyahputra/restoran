@@ -80,6 +80,18 @@
           <span>{{ detailReservasi.status }}</span>
         </div>
 
+        <!-- Upload Bukti Pembayaran -->
+        <div class="upload-section" *ngIf="detailReservasi?.pembayaran?.status === 'menunggu'">
+          <strong>Upload Bukti Pembayaran:</strong>
+    
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+    
+          <ion-button expand="block" color="primary" (click)="uploadBukti()" class="ion-margin-top">
+            Kirim Bukti Pembayaran
+          </ion-button>
+        </div>
+
+
 
         <ion-card *ngIf="detailReservasi.pelayan">
           <ion-card-header>
@@ -124,6 +136,7 @@
 
       </ion-card-content>
     </ion-card>
+
 
     <div class="ion-text-center" style="margin-bottom: 30px;" *ngIf="qrData">
       <qrcode [qrdata]="qrData" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
