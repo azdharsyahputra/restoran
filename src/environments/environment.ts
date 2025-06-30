@@ -4,17 +4,17 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'https://restoran.kalasenja.my.id/api',
-  // imageBaseUrl: 'https://restoran.kalasenja.my.id/storage/gambar_menu/',
-  // imageBaseUrlProfile: 'https://restoran.kalasenja.my.id/storage/profile/'
-  apiUrl: 'http://localhost:8000/api',
-  imageBaseUrl: 'http://localhost:8000/img/gambar_menu/',
-
-  imageBaseUrlProfile: 'http://localhost:8000/img/foto_profile/'
-
-  
+  apiUrl: 'https://restoran.kalasenja.my.id/api',
+  baseUrl: 'https://restoran.kalasenja.my.id',
+  imageBaseUrl: 'https://restoran.kalasenja.my.id/img/gambar_menu/',
+  imageBaseUrlProfile: 'https://restoran.kalasenja.my.id/img/foto_profile/'
 };
-
+// apiUrl: 'https://restoran.kalasenja.my.id/api',
+// imageBaseUrl: 'https://restoran.kalasenja.my.id/storage/gambar_menu/',
+// imageBaseUrlProfile: 'https://restoran.kalasenja.my.id/storage/profile/'
+// apiUrl: 'http://localhost:8000/api',
+// imageBaseUrl: 'http://localhost:8000/img/gambar_menu/',
+// imageBaseUrlProfile: 'http://localhost:8000/img/foto_profile/'
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
