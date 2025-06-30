@@ -1,17 +1,15 @@
 // src/app/services/profile/profile.service.ts
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment'; // ✅ Import environment
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
-  // private apiUrl = 'https://restoran.kalasenja.my.id/api';
-  // private baseUrl = 'https://restoran.kalasenja.my.id';
-  private apiUrl = 'http://localhost:8000/api';
-  private baseUrl = 'http://localhost:8000';
-
+  private apiUrl = environment.apiUrl;
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +17,6 @@ export class ProfileService {
     return localStorage.getItem('token');
   }
 
-  // Fungsi lama, tetap ada, untuk request GET profile langsung (raw dari backend)
   getProfile() {
     const token = this.getToken();
     const headers = new HttpHeaders({
@@ -29,7 +26,6 @@ export class ProfileService {
     return this.http.get(`${this.apiUrl}/profile`, { headers }).toPromise();
   }
 
-  // Fungsi baru: ambil profil + proses baseUrl foto supaya mudah dipakai di komponen
   async loadUserProfile() {
     try {
       const res: any = await this.getProfile();
@@ -62,7 +58,6 @@ export class ProfileService {
     return null;
   }
 
-  // Fungsi update profile (PUT)
   updateProfile(data: any) {
     const token = this.getToken();
     const headers = new HttpHeaders({
@@ -77,6 +72,4 @@ export class ProfileService {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
   }
-
-
 }

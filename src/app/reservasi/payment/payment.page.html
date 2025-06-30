@@ -141,19 +141,19 @@
           </ion-label>
         </ion-item>
 
-        <!-- <ion-item style="margin-top: 24px;">
+        <ion-item style="margin-top: 24px;">
           <ion-label>Metode Pembayaran</ion-label>
           <ion-select placeholder="Pilih Pembayaran" [(ngModel)]="metodePembayaran">
             <ion-select-option value="qris">QRIS</ion-select-option>
             <ion-select-option value="transfer">Transfer</ion-select-option>
             <ion-select-option value="cod">COD</ion-select-option>
           </ion-select>
-        </ion-item> -->
-
+        </ion-item>
+<!-- 
         <ion-item *ngIf="metodePembayaran === 'transfer' || metodePembayaran === 'cod'" style="margin-top: 16px;">
           <ion-label position="stacked">Upload Bukti Pembayaran</ion-label>
           <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-        </ion-item>
+        </ion-item> -->
 
         <ion-button expand="block" color="primary" style="margin-top: 24px;" (click)="bayarSekarang()">
           Bayar Sekarang
@@ -163,4 +163,4 @@
     </ion-card>
 
   </div>
-</ion-content>
+</ion-content> 

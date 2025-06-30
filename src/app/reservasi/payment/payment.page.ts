@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ReservasiService, PesananItem } from 'src/app/services/reservasi/reservasi.service';
 import { PembayaranService } from 'src/app/services/payment/pembayaran.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+
 
 declare global {
   interface Window {
@@ -33,7 +35,8 @@ export class PaymentPage implements OnInit {
     private reservasiService: ReservasiService,
     private router: Router,
     private route: ActivatedRoute,
-    private pembayaranService: PembayaranService
+    private pembayaranService: PembayaranService,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -121,9 +124,52 @@ export class PaymentPage implements OnInit {
     });
   }
 
+  // bayarSekarang() {
+  //   if (!this.reservasiId || !this.token) {
+  //     alert('Data tidak lengkap!');
+  //     return;
+  //   }
+
+  //   const totalBayar = this.hitungTotalBayar();
+
+  //   this.pembayaranService.getMidtransToken(
+  //     this.token,
+  //     this.reservasiId,
+  //     totalBayar,
+  //     this.namaPengguna,
+  //     this.emailPengguna
+  //   ).subscribe((res: any) => {
+  //     if (res.snapToken) {
+  //       window.snap.pay(res.snapToken, {
+  //         onSuccess: (result: any) => {
+  //           console.log('Pembayaran berhasil', result);
+  //           // alert('Pembayaran berhasil');
+  //           this.router.navigate(['/sukses', this.reservasiId]);
+  //         },
+  //         onPending: (result: any) => {
+  //           console.log('Menunggu pembayaran', result);
+  //           alert('Menunggu pembayaran diselesaikan');
+  //         },
+  //         onError: (result: any) => {
+  //           console.error('Pembayaran gagal', result);
+  //           alert('Pembayaran gagal. Silakan coba lagi.');
+  //         },
+  //         onClose: () => {
+  //           console.log('User menutup Snap');
+  //         }
+  //       });
+  //     } else {
+  //       alert('Gagal mendapatkan token pembayaran');
+  //     }
+  //   }, err => {
+  //     console.error(err);
+  //     alert('Terjadi kesalahan saat memproses pembayaran');
+  //   });
+  // }
+
   bayarSekarang() {
-    if (!this.reservasiId || !this.token) {
-      alert('Data tidak lengkap!');
+    if (!this.reservasiId || !this.token || !this.metodePembayaran) {
+      alert('Data tidak lengkap atau metode belum dipilih!');
       return;
     }
 
@@ -134,13 +180,30 @@ export class PaymentPage implements OnInit {
       this.reservasiId,
       totalBayar,
       this.namaPengguna,
-      this.emailPengguna
+      this.emailPengguna,
+      this.metodePembayaran
     ).subscribe((res: any) => {
+      if (this.metodePembayaran === 'cod') {
+        this.alertCtrl.create({
+          header: 'Berhasil!',
+          message: 'Pesanan dengan metode COD berhasil dicatat. Silakan lakukan pembayaran saat di tempat.',
+          buttons: [
+            {
+              text: 'OK',
+              handler: () => {
+                this.router.navigate(['/sukses', this.reservasiId]);
+              }
+            }
+          ]
+        }).then(alert => alert.present());
+        return;
+      }
+
+
       if (res.snapToken) {
         window.snap.pay(res.snapToken, {
           onSuccess: (result: any) => {
             console.log('Pembayaran berhasil', result);
-            // alert('Pembayaran berhasil');
             this.router.navigate(['/sukses', this.reservasiId]);
           },
           onPending: (result: any) => {
@@ -163,5 +226,6 @@ export class PaymentPage implements OnInit {
       alert('Terjadi kesalahan saat memproses pembayaran');
     });
   }
+
 
 }
