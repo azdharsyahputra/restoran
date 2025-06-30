@@ -86,34 +86,41 @@ const routes: Routes = [
   },
   {
     path: 'status-meja',
-    loadChildren: () => import('./status-meja/status-meja.module').then( m => m.StatusMejaPageModule),
+    loadChildren: () => import('./status-meja/status-meja.module').then(m => m.StatusMejaPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'history-reservasi',
-    loadChildren: () => import('./history-reservasi/history-reservasi.module').then( m => m.HistoryReservasiPageModule),
+    loadChildren: () => import('./history-reservasi/history-reservasi.module').then(m => m.HistoryReservasiPageModule),
     canActivate: [AuthGuard]
-    
+
   },
   {
     path: 'pesann-langsung',
-    loadChildren: () => import('./reservasi/pesann-langsung/pesann-langsung.module').then( m => m.PesannLangsungPageModule),
+    loadChildren: () => import('./reservasi/pesann-langsung/pesann-langsung.module').then(m => m.PesannLangsungPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'payment-pelayan',
-    loadChildren: () => import('./reservasi/payment-pelayan/payment-pelayan.module').then( m => m.PaymentPelayanPageModule),
+    loadChildren: () => import('./reservasi/payment-pelayan/payment-pelayan.module').then(m => m.PaymentPelayanPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'sukses/:id',
-    loadChildren: () => import('./reservasi/sukses/sukses.module').then( m => m.SuksesPageModule),
+    loadChildren: () => import('./reservasi/sukses/sukses.module').then(m => m.SuksesPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'ganti-password',
-    loadChildren: () => import('./auth/ganti-password/ganti-password.module').then( m => m.GantiPasswordPageModule)
+    loadChildren: () => import('./auth/ganti-password/ganti-password.module').then(m => m.GantiPasswordPageModule)
   },
+  {
+    path: 'notif',
+    loadChildren: () => import('./notif/notif.module').then(m => m.NotifPageModule)
+  },
+
+
+
 
 
 ];
