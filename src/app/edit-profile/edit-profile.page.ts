@@ -29,12 +29,20 @@ export class EditProfilePage implements OnInit {
     try {
       const res: any = await this.profileService.getProfile();
       console.log('RESPON DARI BACKEND:', res);
-      const baseUrl = 'http://localhost:8000';
+
+      let telepon = res.data.telepon || '';
+      if (telepon.startsWith('08')) {
+        // Hapus angka 0 pertama, jadi "812xxxx"
+        telepon = telepon.substring(1);
+      } else if (telepon.startsWith('62')) {
+        // Hapus "62", jadi "812xxxx"
+        telepon = telepon.substring(2);
+      }
 
       this.user = {
         ...res.data,
+        telepon: telepon, // Pakai hasil potongan
         foto: res.data.foto || ''
-
       };
     } catch (error) {
       console.error('Gagal ambil profil', error);
@@ -52,15 +60,21 @@ export class EditProfilePage implements OnInit {
     }
   }
 
-  filterAngka(event: any) {
-    const input = event.target.value;
-    const angkaSaja = input.replace(/[^0-9]/g, '');
-    event.target.value = angkaSaja;
-    this.user.telepon = angkaSaja;
+filterAngka(event: any) {
+  let input = event.target.value; // pakai let supaya bisa diubah
+  input = input.replace(/[^0-9]/g, ''); // hanya angka
+
+  // Hapus angka 0 di awal kalau ada
+  if (input.startsWith('0')) {
+    input = input.substring(1);
   }
 
+  event.target.value = input;      // Update field input di UI
+  this.user.telepon = input;      // Update ke variabel user
+}
+
   async saveProfile() {
-    // Validasi minimal 10 digit nomor telepon
+    // Validasi minimal 10 digit (tanpa prefix)
     if (this.user.telepon.length < 10) {
       const alert = await this.alertController.create({
         header: 'Validasi Gagal',
@@ -70,6 +84,9 @@ export class EditProfilePage implements OnInit {
       await alert.present();
       return;
     }
+
+    // Tambahkan kembali angka 0 saat simpan ke backend
+    const nomorLengkap = '0' + this.user.telepon;
 
     const alert = await this.alertController.create({
       header: 'Konfirmasi Simpan',
@@ -87,7 +104,7 @@ export class EditProfilePage implements OnInit {
               const isBase64 = this.user.foto.startsWith('data:image');
               const payload: any = {
                 nama: this.user.nama,
-                telepon: this.user.telepon
+                telepon: nomorLengkap // kirim nomor lengkap
               };
               if (isBase64) {
                 payload.foto = this.user.foto;
@@ -98,6 +115,20 @@ export class EditProfilePage implements OnInit {
             } catch (error) {
               console.error('Gagal update profil', error);
             }
+
+            const successAlert = await this.alertController.create({
+              header: 'Berhasil',
+              message: 'Profil berhasil diperbarui!',
+              buttons: [
+                {
+                  text: 'OK',
+                  handler: () => {
+                    window.location.href = '/profile';
+                  }
+                }
+              ]
+            });
+            await successAlert.present();
           }
         }
       ]

@@ -22,7 +22,7 @@
     <div class="history-card" *ngFor="let item of historiList" (click)="goToDetail(item.id)"
       style="display: flex; align-items: center; gap: 15px; cursor: pointer;">
       <div class="image-history">
-        <img [src]="user?.foto" alt="Foto Profil" width="65" />
+        <img [src]="user?.foto" alt="Foto Profil" width="65" height="65" style="object-fit: cover; border-radius: 50%;" />
       </div>
       <div class="desc-history">
         <p>{{ user?.nama }}</p>
