@@ -20,7 +20,9 @@
 
     <ion-item>
        <ion-label position="stacked" style="color: black;">No Telepon</ion-label>
-      <ion-input [(ngModel)]="user.telepon" type="tel" (ionInput)="filterAngka($event)" style="color: black;"></ion-input>
+      <ion-input [(ngModel)]="user.telepon" type="tel" (ionInput)="filterAngka($event)" placeholder="812xxxxxxx" style="color: black;">
+         <ion-text slot="start">+62</ion-text>
+      </ion-input>
     </ion-item>
 
     <ion-item>
