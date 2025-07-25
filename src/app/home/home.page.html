@@ -10,12 +10,25 @@
         <p>What Do You Want To Eat</p>
       </div>
 
-      <div class="icon-header">
+      <div class="icon-header" style="position: relative;">
         <ion-button fill="clear" [routerLink]="['/notif']">
-          <ion-icon name="notifications-outline"></ion-icon>
+          <ion-icon name="notifications-outline" style="font-size: 24px;"></ion-icon>
         </ion-button>
 
+        <!-- Titik merah muncul jika ada notif belum dibaca -->
+        <div *ngIf="hasNewNotif" style="
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        z-index: 10;">
+        </div>
       </div>
+
+
     </div>
 
     <div class="content">
