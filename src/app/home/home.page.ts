@@ -3,6 +3,7 @@ import { MenuService } from '../services/menu/menu.service';
 import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 import { HttpClient } from '@angular/common/http';
+import { NotifService } from '../notif/notif.service'; // ← Tambahkan ini
 
 @Component({
   selector: 'app-home',
@@ -25,21 +26,24 @@ export class HomePage implements OnInit {
   reservasiId: number = 1;
   noMenuAvailable: boolean = false;
 
+  hasNewNotif: boolean = false; // ← Tambahkan ini
+
   constructor(
     private menuService: MenuService,
     private ProfileService: ProfileService,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private notifService: NotifService // ← Tambahkan ini
+  ) { }
 
   async ngOnInit() {
-this.menuService.getAllMenu().subscribe((res: any) => {
-  this.menuList = res;
-  if (this.menuList.length === 0) {
-    console.log('Tidak ada menu tersedia');
-    this.noMenuAvailable = true; // ✅ Set flag true kalau kosong
-  } else {
-    this.noMenuAvailable = false;
-  }
+    this.menuService.getAllMenu().subscribe((res: any) => {
+      this.menuList = res;
+      if (this.menuList.length === 0) {
+        console.log('Tidak ada menu tersedia');
+        this.noMenuAvailable = true;
+      } else {
+        this.noMenuAvailable = false;
+      }
 
       this.makananList = res.filter((m: any) => m.kategori.toLowerCase() === 'makanan');
       this.minumanList = res.filter((m: any) => m.kategori.toLowerCase() === 'minuman');
@@ -53,10 +57,24 @@ this.menuService.getAllMenu().subscribe((res: any) => {
     });
 
     this.userProfile = await this.ProfileService.loadUserProfile();
-    console.log(this.userProfile);
     if (this.userProfile && this.userProfile.id) {
       localStorage.setItem('pengguna_id', this.userProfile.id.toString());
     }
+
+    this.cekNotifikasiBaru(); // ← Tambahkan ini untuk mengecek notifikasi
+  }
+
+  cekNotifikasiBaru() {
+    this.notifService.getNotifikasiWithToken().subscribe({
+      next: (res: any) => {
+        const data = res.data;
+        const belumDibaca = data.some((n: any) => !n.dibaca);
+        this.hasNewNotif = belumDibaca;
+      },
+      error: (err: any) => {
+        console.error('❌ Gagal cek notifikasi:', err);
+      }
+    });
   }
 
   selectCategory(kategori: string) {
